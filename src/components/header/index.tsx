@@ -21,6 +21,7 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = ({
   sticky = true,
 }) => {
   const { mode, setMode } = useContext(ColorModeContext);
+  // console.log("hi");
 
   const { data: user } = useGetIdentity<IUser>();
 
