@@ -11,9 +11,12 @@ import {
   ShowButton,
   useDataGrid,
 } from "@refinedev/mui";
+import Head from "next/head";
 import React from "react";
+import { useDocumentTitle } from "@refinedev/nextjs-router/pages";
 
 export default function BlogPostList() {
+  // useDocumentTitle("Posts | Refine");
   const { dataGridProps } = useDataGrid({
     syncWithLocation: true,
   });
