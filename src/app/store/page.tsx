@@ -1,13 +1,24 @@
+"use client";
 import { Typography } from "@mui/material";
-import { Title } from "@refinedev/mui";
-import { Metadata } from "next";
-import Head from "next/head";
+import CategoryCard from "../../components/common/CategoryCard";
+import { useRouter } from "next/navigation";
 
 const Store = () => {
+  const router = useRouter();
   return (
-    <div className="text-primary-main ">
+    <div>
       {" "}
       <Typography>Store</Typography>
+      <CategoryCard title="Category">
+        {[...new Array(5)].map((item, index) => {
+          return (
+            <div key={index} onClick={() => router.push(`/store/${index}`)}>
+              <img src="" alt="" className="w-40 h-40" />
+              item {index}
+            </div>
+          );
+        })}
+      </CategoryCard>
     </div>
   );
 };

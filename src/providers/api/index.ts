@@ -1,17 +1,19 @@
 import axios from "axios";
 
+const apiUrl = process.env.NEXT_PUBLIC_ASM_API_URL;
+
 const API = axios.create({
-  baseURL: "",
+  baseURL: apiUrl,
 });
 export default API;
 
 API.interceptors.request.use(
-  function (config) {
-    // Do something before request is sent
+  (config) => {
+    // Modify the request configuration before sending it
+    config.headers.Authorization = `${localStorage.getItem("token")}`;
     return config;
   },
-  function (error) {
-    // Do something with request error
+  (error) => {
     return Promise.reject(error);
   }
 );
