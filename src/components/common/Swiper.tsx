@@ -30,10 +30,6 @@ const Swiper = ({ children }: any) => {
           }
       `,
       ],
-      injectStylesUrls: [
-        "path/to/navigation-element.min.css",
-        "path/to/pagination-element.min.css",
-      ],
     };
 
     Object.assign(swiperContainer as any, params);

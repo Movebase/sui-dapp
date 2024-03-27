@@ -22,6 +22,7 @@
     "@mui/lab": "^5.0.0-alpha.85",
     "@mui/material": "^5.8.6",
     "@mui/x-data-grid": "^6.6.0",
+    "@reduxjs/toolkit": "^2.2.2",
     "@refinedev/cli": "^2.16.21",
     "@refinedev/core": "^4.47.1",
     "@refinedev/devtools": "^1.1.32",
@@ -41,6 +42,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-multi-carousel": "^2.8.4",
+    "react-redux": "^9.1.0",
     "swiper": "^11.0.7",
     "tailwindcss": "^3.4.1",
     "typescript-eslint": "^7.3.1"

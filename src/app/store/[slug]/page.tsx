@@ -1,14 +1,15 @@
 "use client";
-import { useParams } from "next/navigation";
-import React from "react";
-import AppHeader from "./AppHeader";
-import Carousel from "../../../components/common/Carousel";
-import background from "../../asset/background.png";
-import { NavArrowLeft, NavArrowRight } from "iconoir-react";
 import Swiper from "../../../components/common/Swiper";
-import { SwiperSlide } from "swiper/react";
+import background from "../../asset/background.png";
+import AppHeader from "./AppHeader";
+import { useAppSelector } from "../../../hook/redux";
+import { storeSelector } from "../../../redux/slices/store";
+import { useGetBillQuery } from "../../../redux/api";
 
 const AppDetail = ({ params }: { params: { slug: string } }) => {
+  const store = useAppSelector(storeSelector);
+  const { data } = useGetBillQuery(undefined);
+  // console.log(data);
   return (
     <div>
       <AppHeader />
