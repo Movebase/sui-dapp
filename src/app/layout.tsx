@@ -34,24 +34,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const cookieStore = cookies();
-  // const theme = cookieStore.get("theme");
-  // const defaultMode = theme?.value === "dark" ? "dark" : "light";
+  const theme = localStorage.getItem("theme");
+  const defaultMode = theme === "dark" ? "dark" : "light";
 
   return (
     <html lang="en">
       <body>
         <Suspense>
           <RefineKbarProvider>
-            <ColorModeContextProvider>
+            <ColorModeContextProvider defaultMode={defaultMode}>
               <RefineSnackbarProvider>
-                {/* <DevtoolsProvider> */}
                 <Provider store={store}>
                   <Refine
                     routerProvider={routerProvider}
                     dataProvider={dataProvider}
                     notificationProvider={notificationProvider}
-                    // authProvider={authProvider}
+                    authProvider={authProvider}
                     resources={[
                       {
                         name: "blog_posts",
@@ -85,7 +83,6 @@ export default function RootLayout({
                     <RefineKbar />
                   </Refine>
                 </Provider>
-                {/* </DevtoolsProvider> */}
               </RefineSnackbarProvider>
             </ColorModeContextProvider>
           </RefineKbarProvider>

@@ -5,7 +5,6 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import { ThemeProvider } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // import { RefineThemes } from "@refinedev/mui";
-import Cookies from "js-cookie";
 import React, {
   PropsWithChildren,
   createContext,
@@ -41,7 +40,8 @@ export const ColorModeContextProvider: React.FC<
 
   useEffect(() => {
     if (isMounted) {
-      const theme = Cookies.get("theme") || (systemTheme ? "dark" : "light");
+      const theme =
+        localStorage.getItem("theme") || (systemTheme ? "dark" : "light");
       setMode(theme);
     }
   }, [isMounted, systemTheme]);
@@ -50,7 +50,7 @@ export const ColorModeContextProvider: React.FC<
     const nextTheme = mode === "light" ? "dark" : "light";
 
     setMode(nextTheme);
-    Cookies.set("theme", nextTheme);
+    localStorage.setItem("theme", nextTheme);
   };
 
   return (

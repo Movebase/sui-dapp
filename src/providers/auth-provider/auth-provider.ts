@@ -1,57 +1,95 @@
 "use client";
 
 import { AuthBindings } from "@refinedev/core";
+import axios from "axios";
 import Cookies from "js-cookie";
-
-const mockUsers = [
-  {
-    name: "John Doe",
-    email: "johndoe@mail.com",
-    roles: ["admin"],
-    avatar: "https://i.pravatar.cc/150?img=1",
-  },
-  {
-    name: "Jane Doe",
-    email: "janedoe@mail.com",
-    roles: ["editor"],
-    avatar: "https://i.pravatar.cc/150?img=1",
-  },
-];
+import { decrypt } from "../../helper/decrypt";
 
 export const authProvider: AuthBindings = {
   login: async ({ email, username, password, remember }) => {
     // Suppose we actually send a request to the back end here.
-    const user = mockUsers[0];
+    const res = await axios.post("https://api-easm.zepto.vn/accounts/login", {
+      email: email,
+      password: password,
+    });
+    const device = await res.headers?.["x-hash"];
+    const decryptedToken: any = decrypt(res.data.token, device);
+    const { token, refreshToken } = JSON.parse(decryptedToken);
 
-    if (user) {
-      Cookies.set("auth", JSON.stringify(user), {
-        expires: 30, // 30 days
-        path: "/",
-      });
+    if (token) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("refreshToken", refreshToken);
       return {
         success: true,
         redirectTo: "/",
       };
     }
-
     return {
       success: false,
       error: {
         name: "LoginError",
-        message: "Invalid username or password",
+        message: "Invalid username ",
+      },
+    };
+  },
+  register: async ({ email, password, providerName }) => {
+    // You can handle the register process according to your needs.
+
+    // If the process is successful.
+    return {
+      success: true,
+    };
+
+    return {
+      success: false,
+      error: {
+        name: "Register Error",
+        message: "Invalid email or password",
+      },
+    };
+  },
+  forgotPassword: async ({ email }) => {
+    // You can handle the reset password process according to your needs.
+
+    // If process is successful.
+    return {
+      success: true,
+    };
+
+    return {
+      success: false,
+      error: {
+        name: "Forgot Password Error",
+        message: "Invalid email or password",
+      },
+    };
+  },
+  updatePassword: async ({ password, confirmPassword }) => {
+    // You can handle the update password process according to your needs.
+
+    // If the process is successful.
+    return {
+      success: true,
+    };
+
+    return {
+      success: false,
+      error: {
+        name: "Update Password Error",
+        message: "Invalid email or password",
       },
     };
   },
   logout: async () => {
-    Cookies.remove("auth", { path: "/" });
+    localStorage.clear();
     return {
       success: true,
       redirectTo: "/login",
     };
   },
   check: async () => {
-    const auth = Cookies.get("auth");
-    if (auth) {
+    const token = localStorage.getItem("token");
+    if (token) {
       return {
         authenticated: true,
       };
@@ -64,17 +102,17 @@ export const authProvider: AuthBindings = {
     };
   },
   getPermissions: async () => {
-    const auth = Cookies.get("auth");
-    if (auth) {
-      const parsedUser = JSON.parse(auth);
+    const token = localStorage.getItem("token");
+    if (token) {
+      const parsedUser = JSON.parse(token);
       return parsedUser.roles;
     }
     return null;
   },
   getIdentity: async () => {
-    const auth = Cookies.get("auth");
-    if (auth) {
-      const parsedUser = JSON.parse(auth);
+    const token = localStorage.getItem("token");
+    if (token) {
+      const parsedUser = JSON.parse(token);
       return parsedUser;
     }
     return null;

@@ -12,10 +12,10 @@ const baseQuery = fetchBaseQuery({
   baseUrl: "https://api-easm.zepto.vn",
   prepareHeaders: (headers, { getState }) => {
     // By default, if we have a token in the store, let's use that for authenticated requests
-    // const token = (getState() as RootState).auth.token;
-    // if (token) {
-    //   headers.set("authorization", `Bearer ${token}`);
-    // }
+    const token = (getState() as RootState).accountReducer.token;
+    if (token) {
+      headers.set("authorization", `Bearer ${token}`);
+    }
     return headers;
   },
 });
