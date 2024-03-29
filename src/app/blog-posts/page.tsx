@@ -14,6 +14,7 @@ import {
 import Head from "next/head";
 import React from "react";
 import { useDocumentTitle } from "@refinedev/nextjs-router/pages";
+import { Metadata } from "next";
 
 export default function BlogPostList() {
   // useDocumentTitle("Posts | Refine");
@@ -110,8 +111,12 @@ export default function BlogPostList() {
   );
 
   return (
-    <List>
-      <DataGrid {...dataGridProps} columns={columns} autoHeight />
-    </List>
+    <div>
+      {/* <title>Abc</title> */}
+
+      <List>
+        <DataGrid {...dataGridProps} columns={columns} autoHeight />
+      </List>
+    </div>
   );
 }

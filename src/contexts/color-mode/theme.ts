@@ -7,6 +7,12 @@ declare module "@mui/material/styles" {
   interface PaletteOptions {
     violet?: PaletteOptions["primary"];
   }
+  interface PaletteColorOptions {
+    walletStart?: string;
+    walletEnd?: string;
+    main?: string;
+    contrastText?: string;
+  }
 }
 const darkPalette: PaletteOptions = {
   mode: "dark",
@@ -26,6 +32,7 @@ const darkPalette: PaletteOptions = {
     main: "#67be23",
     contrastText: "#fff",
   },
+
   error: {
     main: "#ee2a1e",
     contrastText: "#fff",
@@ -49,9 +56,21 @@ const lightPalette: PaletteOptions = {
   mode: "light",
   primary: {
     main: "#67be23",
+    walletStart: "#FD368F",
+    walletEnd: "#F8A745",
     contrastText: "#fff",
   },
-  violet: {},
+  grey: {
+    100: "#D6D9DF",
+    200: "#ADB4C0",
+    300: "#838FA0",
+    400: "#5A6981",
+    500: "#2C4364",
+    600: "#27364E",
+    700: "#1D283A",
+    800: "#141B27",
+    900: "#0A0D13",
+  },
   secondary: {
     main: "#2A132E",
     contrastText: "#fff",

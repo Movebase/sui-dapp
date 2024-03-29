@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .wallet {
+    background-image: linear-gradient(
+      to right,
+      #fd368f -49.58%,
+      #f8a745 149.33%
+    );
+  }
+  /* ... */
+}

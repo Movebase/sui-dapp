@@ -101,7 +101,7 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordProps> = ({
         </Typography>
         <Box
           component="form"
-          onSubmit={handleSubmit((data) => {
+          onSubmit={handleSubmit((data: any) => {
             if (onSubmit) {
               return onSubmit(data);
             }

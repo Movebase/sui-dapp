@@ -156,7 +156,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
         {!hideForm && (
           <Box
             component="form"
-            onSubmit={handleSubmit((data) => {
+            onSubmit={handleSubmit((data: any) => {
               if (onSubmit) {
                 return onSubmit(data);
               }

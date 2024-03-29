@@ -1,25 +1,25 @@
 "use client";
 import {
-  LoginPageProps,
   LoginFormTypes,
+  LoginPageProps,
   useActiveAuthProvider,
   useGo,
 } from "@refinedev/core";
 import { useForm } from "@refinedev/react-hook-form";
 import { FormProvider } from "react-hook-form";
 
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import MuiLink from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 
 import type { BoxProps } from "@mui/material/Box";
 import type { CardContentProps } from "@mui/material/CardContent";
@@ -27,19 +27,16 @@ import type { CardContentProps } from "@mui/material/CardContent";
 import {
   BaseRecord,
   HttpError,
+  useLink,
   useLogin,
-  useTranslate,
   useRouterContext,
   useRouterType,
-  useLink,
+  useTranslate,
 } from "@refinedev/core";
-import { FormPropsType } from "@refinedev/mui/dist/components/pages/auth";
 import { ThemedTitleV2 } from "@refinedev/mui";
-import { CSSProperties, useEffect } from "react";
-import { useLoginMutation } from "../../redux/api/account";
+import { FormPropsType } from "@refinedev/mui/dist/components/pages/auth";
+import { CSSProperties } from "react";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../../redux/slices/account";
-import { useRouter } from "next/router";
 
 export const layoutStyles: CSSProperties = {};
 
@@ -171,7 +168,7 @@ export const LoginPage: React.FC<LoginProps> = ({
         {!hideForm && (
           <Box
             component="form"
-            onSubmit={handleSubmit((data) => {
+            onSubmit={handleSubmit((data: any) => {
               if (onSubmit) {
                 return onSubmit(data);
               }

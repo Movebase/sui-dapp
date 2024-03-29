@@ -1,28 +1,20 @@
 "use client";
-import Swiper from "../../../components/common/Swiper";
-import background from "../../asset/background.png";
+import { Box, Typography } from "@mui/material";
+import MemberCard from "../../../components/common/MemberCard";
 import AppHeader from "./AppHeader";
-import { useAppSelector } from "../../../hook/redux";
-import { storeSelector } from "../../../redux/slices/store";
-import { useGetBillQuery } from "../../../redux/api";
 
 const AppDetail = ({ params }: { params: { slug: string } }) => {
-  const store = useAppSelector(storeSelector);
-  const { data } = useGetBillQuery(undefined);
   // console.log(data);
+
   return (
-    <div>
+    <div className="flex flex-col gap-3">
       <AppHeader />
-      <Swiper>
-        {[...new Array(5)].map((item, index) => {
-          return (
-            <swiper-slide key={index} className="m-4">
-              <img src={background.src} alt="" className="object-contain" />
-              item {index}
-            </swiper-slide>
-          );
-        })}
-      </Swiper>
+      <Typography variant="h6">Team</Typography>
+      <Box className="grid grid-cols-3 gap-5">
+        {[...new Array(5)].map((_, i) => (
+          <MemberCard key={i} />
+        ))}
+      </Box>
     </div>
   );
 };
