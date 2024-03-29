@@ -14,8 +14,12 @@ const MemberCard = () => {
         className="w-[50px] h-[50px]"
       />
       <Stack spacing={1} alignItems={"center"}>
-        <Typography className="text-grey-900">Chandler Song</Typography>
-        <Typography className="text-grey-300">Co-Founder and CEO</Typography>
+        <Typography className="text-grey-900 text-center">
+          Chandler Song
+        </Typography>
+        <Typography className="text-grey-300 text-center">
+          Co-Founder and CEO
+        </Typography>
       </Stack>
     </Card>
   );

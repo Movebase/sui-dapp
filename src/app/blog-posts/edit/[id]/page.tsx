@@ -25,11 +25,7 @@ export default function BlogPostEdit() {
 
   return (
     <Edit isLoading={formLoading} saveButtonProps={saveButtonProps}>
-      <Box
-        component="form"
-        sx={{ display: "flex", flexDirection: "column" }}
-        autoComplete="off"
-      >
+      <Box component="form" sx={{ display: "flex", flexDirection: "column" }}>
         <TextField
           {...register("title", {
             required: "This field is required",

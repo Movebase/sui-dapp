@@ -1,7 +1,7 @@
 "use client";
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useMany } from "@refinedev/core";
+import { useGo, useMany, useNavigation } from "@refinedev/core";
 import {
   DateField,
   DeleteButton,
@@ -21,7 +21,8 @@ export default function BlogPostList() {
   const { dataGridProps } = useDataGrid({
     syncWithLocation: true,
   });
-
+  const { edit, show } = useNavigation();
+  const go = useGo();
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
     resource: "categories",
     ids:
@@ -93,10 +94,26 @@ export default function BlogPostList() {
         field: "actions",
         headerName: "Actions",
         sortable: false,
+        disableColumnMenu: true,
+
         renderCell: function render({ row }) {
           return (
             <>
-              <EditButton hideText recordItemId={row.id} />
+              <EditButton
+                hideText
+                recordItemId={row.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  go({
+                    to: {
+                      resource: "blog_posts", // resource name or identifier
+                      action: "edit",
+                      id: row.id,
+                    },
+                    type: "push",
+                  });
+                }}
+              />
               <ShowButton hideText recordItemId={row.id} />
               <DeleteButton hideText recordItemId={row.id} />
             </>
@@ -115,7 +132,28 @@ export default function BlogPostList() {
       {/* <title>Abc</title> */}
 
       <List>
-        <DataGrid {...dataGridProps} columns={columns} autoHeight />
+        <DataGrid
+          {...dataGridProps}
+          columns={columns}
+          autoHeight
+          isRowSelectable={() => true}
+          sx={{
+            "& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus": {
+              outline: "none",
+            },
+          }}
+          onRowClick={(row, e) => {
+            e.stopPropagation();
+            go({
+              to: {
+                resource: "blog_posts", // resource name or identifier
+                action: "show",
+                id: row.id,
+              },
+              type: "push",
+            });
+          }}
+        />
       </List>
     </div>
   );

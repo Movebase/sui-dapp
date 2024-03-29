@@ -1,7 +1,4 @@
-import { ThemedLayout } from "@components/themed-layout";
 import { Container } from "@mui/material";
-import { Metadata } from "next";
-import { redirect } from "next/navigation";
 import React from "react";
 import CustomLayout from "../../components/common/Layout";
 

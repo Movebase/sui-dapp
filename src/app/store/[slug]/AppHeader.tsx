@@ -1,6 +1,12 @@
-import { Box, Button, Divider, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Stack,
+  Theme,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import Image from "next/image";
-import React from "react";
 import appIcon from "../../asset/app-logo.svg";
 
 const AppHeader = () => {
@@ -10,6 +16,7 @@ const AppHeader = () => {
         direction={"row"}
         justifyContent="space-between"
         alignItems="center"
+        className="flex-col mb:flex-row gap-3 mb:gap-0 items-start mb:items-center"
       >
         <Box className="flex gap-3 items-center ">
           <Image src={appIcon.src} alt="" width={60} height={60} />
@@ -20,7 +27,10 @@ const AppHeader = () => {
             </Typography>
           </Stack>
         </Box>
-        <Button variant="contained" className="wallet rounded-2xl">
+        <Button
+          variant="contained"
+          className="wallet rounded-2xl w-full mb:w-auto"
+        >
           Open app
         </Button>
       </Stack>

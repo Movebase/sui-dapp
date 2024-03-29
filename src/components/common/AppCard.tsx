@@ -5,16 +5,24 @@ import { Stack, Typography } from "@mui/material";
 import appIcon from "../../app/asset/app-logo.svg";
 import Link from "next/link";
 import { Url } from "next/dist/shared/lib/router/router";
+import twMerge from "../../helper/twMerge";
 
 interface AppCardProps {
   title: string;
   description: string;
   src?: string;
   href: Url;
+  className?: string;
 }
-const AppCard = ({ title, description, src, href }: AppCardProps) => {
+const AppCard = ({
+  title,
+  description,
+  src,
+  href,
+  className,
+}: AppCardProps) => {
   return (
-    <Link href={href}>
+    <Link href={href} className={twMerge` ${className}`}>
       <Card className="flex gap-3 items-center p-4 py-3">
         <Image
           src={appIcon.src}

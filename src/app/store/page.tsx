@@ -35,20 +35,23 @@ const Store = () => {
       <Image
         src={banner.src}
         alt=""
-        width={880}
+        width={1000}
         height={370}
         className="rounded-lg"
       />
       <Stack direction={"row"} spacing={3} alignItems={"center"}></Stack>
-      <Box className="grid grid-cols-3 gap-6">
-        <SearchInput placeholder="Search" className="col-span-2" />
-        <FormControl>
+      <Box className="grid grid-cols-1 mb:grid-cols-6 md:grid-cols-3 gap-3 mb:gap-6">
+        <SearchInput
+          placeholder="Search"
+          className="mb:col-span-4 md:col-span-2"
+        />
+        <FormControl className="mb:col-span-2 md:col-span-1">
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={age}
             onChange={handleChange}
-            className="wallet border-0"
+            className="wallet "
             // IconComponent={(props: any) => {
             //   const { className } = props;
             //   if (className.includes("MuiSelect-iconOpen")) {
@@ -98,6 +101,7 @@ const Store = () => {
               description={item.description}
               title={item.title}
               href={`/store/${index}`}
+              className="mb:col-span-3 md:col-span-1"
             />
           );
         })}
