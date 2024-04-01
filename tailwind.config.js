@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import plugin from "tailwindcss";
 import { lightPalette } from "./src/contexts/color-mode/theme.ts";
-import defaultTheme from "tailwindcss/";
+import defaultTheme from "tailwindcss/defaultTheme";
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
