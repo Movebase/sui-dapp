@@ -27,14 +27,9 @@ const App = ({
         authProvider={authProvider}
         resources={[
           {
-            name: "blog_posts",
-            list: "/blog-posts",
-            create: "/blog-posts/create",
-            edit: "/blog-posts/edit/:id",
-            show: "/blog-posts/show/:id",
-            meta: {
-              canDelete: true,
-            },
+            name: "Dashboard",
+            list: "/dashboard",
+            create: "/dashboard/create",
           },
           {
             name: "categories",
@@ -46,6 +41,16 @@ const App = ({
             //   canDelete: true,
             // },
           },
+          // {
+          //   name: "blog_posts",
+          //   list: "/blog-posts",
+          //   create: "/blog-posts/create",
+          //   edit: "/blog-posts/edit/:id",
+          //   show: "/blog-posts/show/:id",
+          //   meta: {
+          //     canDelete: true,
+          //   },
+          // },
         ]}
         options={{
           syncWithLocation: true,

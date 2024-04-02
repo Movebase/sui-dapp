@@ -11,6 +11,8 @@ declare module "@mui/material/styles" {
     walletStart?: string;
     walletEnd?: string;
     main?: string;
+    light?: string;
+    dark?: string;
     contrastText?: string;
   }
 }
@@ -56,6 +58,8 @@ const lightPalette: PaletteOptions = {
   mode: "light",
   primary: {
     main: "#67be23",
+    light: "#67be93",
+    dark: "#67ae00",
     walletStart: "#FD368F",
     walletEnd: "#F8A745",
     contrastText: "#fff",
@@ -80,7 +84,7 @@ const lightPalette: PaletteOptions = {
     paper: "#ffffff",
   },
   success: {
-    main: "#67be23",
+    main: "#67ce23",
     contrastText: "#fff",
   },
   error: {
@@ -128,6 +132,15 @@ const LightTheme = createTheme({
         root: {
           backgroundImage:
             "linear-gradient(rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01))",
+        },
+      },
+    },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          "&.MuiButton-contained": {
+            backgroundColor: lightPalette?.primary?.main,
+          },
         },
       },
     },
