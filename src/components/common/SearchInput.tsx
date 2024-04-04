@@ -48,7 +48,7 @@ const SearchInput = (props: SearchInputProps) => {
           onChange(e);
         }}
         InputProps={{
-          startAdornment: <Search />,
+          startAdornment: <Search className="mr-2" />,
         }}
         sx={{
           "& .MuiOutlinedInput-root": {

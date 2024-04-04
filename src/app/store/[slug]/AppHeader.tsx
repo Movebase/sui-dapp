@@ -7,7 +7,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Image from "next/image";
-import appIcon from "../../asset/app-logo.svg";
+import ankr from "../../asset/ankr.svg";
 
 const AppHeader = () => {
   return (
@@ -19,9 +19,11 @@ const AppHeader = () => {
         className="flex-col mb:flex-row gap-3 mb:gap-0 items-start mb:items-center"
       >
         <Box className="flex gap-3 items-center ">
-          <Image src={appIcon.src} alt="" width={60} height={60} />
-          <Stack spacing={1}>
-            <Typography className="text-grey-900">Ankr</Typography>
+          <Image src={ankr.src} alt="" width={60} height={60} />
+          <Stack>
+            <Typography className="text-grey-900" variant="h6">
+              Ankr
+            </Typography>
             <Typography className="text-grey-300">
               Web 3.0 Infrastructure Providers
             </Typography>

@@ -7,9 +7,9 @@ import {
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
-
+const baseUrl = process.env.NEXT_PUBLIC_DAPP_API_URL;
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://api-easm.zepto.vn",
+  baseUrl: baseUrl,
   prepareHeaders: (headers, { getState }) => {
     // By default, if we have a token in the store, let's use that for authenticated requests
     const token = (getState() as RootState).accountReducer.token;

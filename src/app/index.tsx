@@ -24,7 +24,7 @@ const App = ({
         routerProvider={routerProvider}
         dataProvider={dataProvider}
         notificationProvider={notificationProvider}
-        authProvider={authProvider}
+        // authProvider={authProvider}
         resources={[
           {
             name: "Dashboard",

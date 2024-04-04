@@ -2,7 +2,6 @@ import React from "react";
 import Card from "./Card";
 import Image from "next/image";
 import { Stack, Typography } from "@mui/material";
-import appIcon from "../../app/asset/app-logo.svg";
 import Link from "next/link";
 import { Url } from "next/dist/shared/lib/router/router";
 import twMerge from "../../helper/twMerge";
@@ -10,7 +9,7 @@ import twMerge from "../../helper/twMerge";
 interface AppCardProps {
   title: string;
   description: string;
-  src?: string;
+  src: string;
   href: Url;
   className?: string;
 }
@@ -23,9 +22,16 @@ const AppCard = ({
 }: AppCardProps) => {
   return (
     <Link href={href} className={twMerge` ${className}`}>
-      <Card className="flex gap-3 items-center p-4 py-3">
+      <Card
+        className="flex gap-3 items-center p-4 py-3"
+        sx={{
+          ":hover": {
+            boxShadow: "0px 4px 30px 0px rgba(4, 6, 15, 0.1)",
+          },
+        }}
+      >
         <Image
-          src={appIcon.src}
+          src={src}
           alt=""
           width={50}
           height={50}
