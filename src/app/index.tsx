@@ -2,32 +2,41 @@
 
 import { Refine } from "@refinedev/core";
 import { RefineKbar } from "@refinedev/kbar";
-import { notificationProvider } from "@refinedev/mui";
 import routerProvider from "@refinedev/nextjs-router";
 // import { cookies } from "next/headers";
 import { authProvider } from "@providers/auth-provider";
 import { dataProvider } from "@providers/data-provider";
 import React from "react";
 import "react-multi-carousel/lib/styles.css";
-import { Provider } from "react-redux";
 import "../index.css";
-import { store } from "../redux/store";
+import { users } from "./users";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
+import { useNotificationProvider } from "@refinedev/mui";
 
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 5,
+      retryDelay: 5000,
+    },
+  },
+});
 const App = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
   return (
-    <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
       <Refine
         routerProvider={routerProvider}
         dataProvider={dataProvider}
-        notificationProvider={notificationProvider}
-        // authProvider={authProvider}
+        notificationProvider={useNotificationProvider}
+        authProvider={authProvider}
         resources={[
           {
-            name: "Dashboard",
+            name: "dashboard",
             list: "/dashboard",
             create: "/dashboard/create",
           },
@@ -37,20 +46,8 @@ const App = ({
             create: "/categories/create",
             edit: "/categories/edit/:id",
             show: "/categories/show/:id",
-            // meta: {
-            //   canDelete: true,
-            // },
           },
-          // {
-          //   name: "blog_posts",
-          //   list: "/blog-posts",
-          //   create: "/blog-posts/create",
-          //   edit: "/blog-posts/edit/:id",
-          //   show: "/blog-posts/show/:id",
-          //   meta: {
-          //     canDelete: true,
-          //   },
-          // },
+          { ...users },
         ]}
         options={{
           syncWithLocation: true,
@@ -62,7 +59,7 @@ const App = ({
         {children}
         <RefineKbar />
       </Refine>
-    </Provider>
+    </QueryClientProvider>
   );
 };
 

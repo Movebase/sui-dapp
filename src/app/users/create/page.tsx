@@ -5,7 +5,7 @@ import { Create, useAutocomplete } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 import { Controller } from "react-hook-form";
 
-export default function BlogPostCreate() {
+export default function UserCreate() {
   const {
     saveButtonProps,
     refineCore: { formLoading, onFinish },
@@ -15,44 +15,56 @@ export default function BlogPostCreate() {
     formState: { errors },
   } = useForm({});
 
-  const { autocompleteProps: categoryAutocompleteProps } = useAutocomplete({
-    resource: "categories",
-  });
+  // const { autocompleteProps: categoryAutocompleteProps } = useAutocomplete({
+  //   resource: "categories",
+  // });
 
   return (
     <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
-      <Box
-        component="form"
-        sx={{ display: "flex", flexDirection: "column" }}
-        autoComplete="off"
-      >
+      <Box component="form" sx={{ display: "flex", flexDirection: "column" }}>
         <TextField
-          {...register("title", {
+          {...register("email", {
             required: "This field is required",
           })}
-          error={!!(errors as any)?.title}
-          helperText={(errors as any)?.title?.message}
+          error={!!(errors as any)?.email}
+          helperText={(errors as any)?.email?.message}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label={"Title"}
-          name="title"
+          label={"Email"}
+          name="email"
         />
         <TextField
-          {...register("content", {
+          {...register("name", {
             required: "This field is required",
           })}
-          error={!!(errors as any)?.content}
-          helperText={(errors as any)?.content?.message}
+          error={!!(errors as any)?.name}
+          helperText={(errors as any)?.name?.message}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
           multiline
-          label={"Content"}
-          name="content"
+          label={"Name"}
+          name="name"
         />
-        <Controller
+        <TextField
+          {...register("password", {
+            required: "This field is required",
+          })}
+          error={!!(errors as any)?.password}
+          helperText={(errors as any)?.password?.message}
+          margin="normal"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          inputProps={{
+            autocomplete: "new-password",
+          }}
+          type="password"
+          label={"Password"}
+          name="password"
+        />
+        {/* <Controller
           control={control}
           name={"category.id"}
           rules={{ required: "This field is required" }}
@@ -115,7 +127,7 @@ export default function BlogPostCreate() {
               </Select>
             );
           }}
-        />
+        /> */}
       </Box>
     </Create>
   );

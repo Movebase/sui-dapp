@@ -1,20 +1,16 @@
 "use client";
 
 import { AuthBindings } from "@refinedev/core";
-import axios from "axios";
-import Cookies from "js-cookie";
-import { decrypt } from "../../helper/decrypt";
-
+import API from "../api";
 export const authProvider: AuthBindings = {
   login: async ({ email, username, password, remember }) => {
     // Suppose we actually send a request to the back end here.
-    const res = await axios.post("https://api-easm.zepto.vn/accounts/login", {
+    const data = await API.post("auth/login", {
       email: email,
       password: password,
-    });
-    const device = await res.headers?.["x-hash"];
-    const decryptedToken: any = decrypt(res.data.token, device);
-    const { token, refreshToken } = JSON.parse(decryptedToken);
+    }).then((res) => res.data);
+
+    const { token, refreshToken } = data;
 
     if (token) {
       localStorage.setItem("token", token);

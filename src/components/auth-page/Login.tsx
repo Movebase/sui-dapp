@@ -36,7 +36,6 @@ import {
 import { ThemedTitleV2 } from "@refinedev/mui";
 import { FormPropsType } from "@refinedev/mui/dist/components/pages/auth";
 import { CSSProperties } from "react";
-import { useDispatch } from "react-redux";
 
 export const layoutStyles: CSSProperties = {};
 
@@ -86,10 +85,9 @@ export const LoginPage: React.FC<LoginProps> = ({
   const routerType = useRouterType();
   const Link = useLink();
   const { Link: LegacyLink } = useRouterContext();
-  //   const [muatateLogin, { data, isSuccess }] = useLoginMutation();
+  // const [muatateLogin, { data, isSuccess }] = useLoginMutation();
   const go = useGo();
   const ActiveLink = routerType === "legacy" ? LegacyLink : Link;
-  const dispatch = useDispatch();
   const PageTitle =
     title === false ? null : (
       <div
@@ -172,7 +170,7 @@ export const LoginPage: React.FC<LoginProps> = ({
               if (onSubmit) {
                 return onSubmit(data);
               }
-              //   muatateLogin(data);
+              // muatateLogin(data);
               login(data);
             })}
           >
