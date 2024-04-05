@@ -17,17 +17,17 @@ export default function CategoryCreate() {
     <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
       <Box component="form" sx={{ display: "flex", flexDirection: "column" }}>
         <TextField
-          {...register("title", {
+          {...register("name", {
             required: "This field is required",
           })}
-          error={!!(errors as any)?.title}
-          helperText={(errors as any)?.title?.message}
+          error={!!(errors as any)?.name}
+          helperText={(errors as any)?.name?.message}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label={"Title"}
-          name="title"
+          label={"Name"}
+          name="name"
         />
         {/* <Button type="submit">Sumbit</Button> */}
       </Box>

@@ -5,14 +5,17 @@ import { RefineKbar } from "@refinedev/kbar";
 import routerProvider from "@refinedev/nextjs-router";
 // import { cookies } from "next/headers";
 import { authProvider } from "@providers/auth-provider";
-import { dataProvider } from "@providers/data-provider";
+// import { dataProvider } from "@providers/data-provider";
 import React from "react";
 import "react-multi-carousel/lib/styles.css";
 import "../index.css";
 import { users } from "./users";
+import { dapps } from "./dapps";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/react-query";
-import { useNotificationProvider } from "@refinedev/mui";
+// import { useNotificationProvider } from "@refinedev/mui";
+import { dataProvider } from "../providers/data-provider";
+import { useNotificationProvider } from "../providers/noti-provider";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,11 +38,11 @@ const App = ({
         notificationProvider={useNotificationProvider}
         authProvider={authProvider}
         resources={[
-          {
-            name: "dashboard",
-            list: "/dashboard",
-            create: "/dashboard/create",
-          },
+          // {
+          //   name: "dashboard",
+          //   list: "/dashboard",
+          //   create: "/dashboard/create",
+          // },
           {
             name: "categories",
             list: "/categories",
@@ -48,6 +51,7 @@ const App = ({
             show: "/categories/show/:id",
           },
           { ...users },
+          { ...dapps },
         ]}
         options={{
           syncWithLocation: true,

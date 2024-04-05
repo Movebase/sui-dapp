@@ -8,7 +8,14 @@ export const authProvider: AuthBindings = {
     const data = await API.post("auth/login", {
       email: email,
       password: password,
-    }).then((res) => res.data);
+    })
+      .then((res) => res.data)
+      .catch((err) => {
+        return Promise.reject({
+          message: "Login Error",
+          name: "yes",
+        });
+      });
 
     const { token, refreshToken } = data;
 
@@ -24,7 +31,7 @@ export const authProvider: AuthBindings = {
       success: false,
       error: {
         name: "LoginError",
-        message: "Invalid username ",
+        message: "Invalid username",
       },
     };
   },

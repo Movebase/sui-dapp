@@ -71,6 +71,7 @@ export const LoginPage: React.FC<LoginProps> = ({
   const methods = useForm<BaseRecord, HttpError, LoginFormTypes>({
     ...useFormProps,
   });
+
   const {
     register,
     handleSubmit,

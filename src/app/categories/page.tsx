@@ -22,9 +22,9 @@ export default function CategoryList() {
         minWidth: 50,
       },
       {
-        field: "title",
+        field: "name",
         flex: 1,
-        headerName: "Title",
+        headerName: "Name",
         minWidth: 200,
       },
       {

@@ -18,7 +18,7 @@ import { useDocumentTitle } from "@refinedev/nextjs-router/pages";
 import { Metadata } from "next";
 import { Button } from "@mui/material";
 
-const Dashboard = () => {
+const DApps = () => {
   return (
     <List
       headerButtons={
@@ -28,4 +28,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DApps;
