@@ -3,7 +3,7 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <div className="grid h-screen place-content-center">
+    <div className="grid h-screen place-content-center bg-background-paper">
       <CircularProgress />
       <Typography>Loading...</Typography>
     </div>

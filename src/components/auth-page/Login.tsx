@@ -187,6 +187,9 @@ export const LoginPage: React.FC<LoginProps> = ({
               name="email"
               type="email"
               autoComplete="email"
+              InputLabelProps={{
+                shrink: true,
+              }}
               sx={{
                 mt: 0,
               }}
@@ -205,6 +208,9 @@ export const LoginPage: React.FC<LoginProps> = ({
               type="password"
               placeholder="●●●●●●●●"
               autoComplete="current-password"
+              InputLabelProps={{
+                shrink: true,
+              }}
               sx={{
                 mb: 0,
               }}
