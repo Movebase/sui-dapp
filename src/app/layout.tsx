@@ -1,7 +1,6 @@
 import { RefineKbarProvider } from "@refinedev/kbar";
 import { RefineSnackbarProvider } from "@refinedev/mui";
 import { Metadata } from "next";
-// import { cookies } from "next/headers";
 import { ColorModeContextProvider } from "@contexts/color-mode";
 import React, { Suspense } from "react";
 import "react-multi-carousel/lib/styles.css";
@@ -15,7 +14,8 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
   },
 };
-
+// export const revalidate = +(process.env.NEXT_REVALIDATION_TIME || 0) || 3600;
+// export const dynamic = "force-static";
 export default function RootLayout({
   children,
 }: Readonly<{

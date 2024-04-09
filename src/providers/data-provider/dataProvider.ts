@@ -1,17 +1,18 @@
 import { CondOperator, RequestQueryBuilder } from "@nestjsx/crud-request";
 import { DataProvider, HttpError } from "@refinedev/core";
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { stringify } from "query-string";
 
 import API from "../api";
 import {
-  handleFilter,
   handleJoin,
   handlePagination,
   handleSort,
   transformHttpError,
 } from "@refinedev/nestjsx-crud";
+import { handleFilter } from "../../helper/generateFilter";
 
+const baseAxios = axios.create();
 const dataProvider = (
   apiUrl: string,
   httpClient: AxiosInstance = API
@@ -21,7 +22,7 @@ const dataProvider = (
 
     let query = RequestQueryBuilder.create();
 
-    // query = handleFilter(query, filters);
+    query = handleFilter(query, filters);
     query = handleJoin(query, meta?.join);
     query = handlePagination(query, pagination);
     query = handleSort(query, sorters);
@@ -60,12 +61,12 @@ const dataProvider = (
     };
   },
 
-  create: async ({ resource, variables }) => {
+  create: async ({ resource, variables, meta }) => {
+    const headers = meta?.headers;
     const url = `${apiUrl}/${resource}`;
 
     try {
-      const { data } = await httpClient.post(url, variables);
-
+      const { data } = await httpClient.post(url, variables, { headers });
       return {
         data,
       };

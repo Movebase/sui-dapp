@@ -5,35 +5,52 @@ import { Create, FileField, useAutocomplete } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Controller } from "react-hook-form";
+import { uploadDappIcon } from "../../../providers/api/dappStore";
+import { useParsed } from "@refinedev/core";
 
 const CreateApp = () => {
+  const [image, setImage] = useState<any>();
+  const previewImage = image && URL.createObjectURL(image);
   const {
     saveButtonProps,
-    refineCore: { onFinish, formLoading, queryResult },
+    refineCore: { onFinish, formLoading, queryResult, redirect },
     register,
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm({});
+  } = useForm({
+    refineCoreProps: {
+      meta: {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+      },
+      redirect: false,
+      onMutationSuccess: async (data: any, variables, context, isAutoSave) => {
+        const formData = new FormData();
+
+        if (image) {
+          formData.append("image", image);
+          const res = await uploadDappIcon(data?.data.id, formData).then(
+            (res) => {
+              redirect("list");
+            }
+          );
+        }
+      },
+    },
+  });
   const { autocompleteProps: categoryAutocompleteProps } = useAutocomplete({
     resource: "categories",
   });
 
-  const [file, setFile] = useState<any>();
-  const [category, setCategory] = useState();
-
-  const handleSubmitForm = (values: any) => {
-    const formData = new FormData();
-    formData.append("name", values.appName);
-    formData.append("shortDescription", values.shortDescription);
-    formData.append("description", values.description);
-    formData.append("category", values.category.id);
-    formData.append("image", values.appIcon[0]);
-    onFinish(formData);
+  const handleSubmitForm = async (values: any) => {
+    delete values.appIcon;
+    onFinish(values);
   };
   const handleChange = (e: any) => {
     const file = e.target.files[0];
-    setFile(URL.createObjectURL(file));
+    setImage(e.target.files[0]);
   };
   return (
     <Create
@@ -46,7 +63,7 @@ const CreateApp = () => {
       <Box component="form" sx={{ display: "flex", flexDirection: "column" }}>
         <TextField
           {...register("name", {
-            // required: "This field is required",
+            required: "This field is required",
           })}
           error={!!(errors as any)?.name}
           helperText={(errors as any)?.name?.message}
@@ -59,7 +76,7 @@ const CreateApp = () => {
         />
         <TextField
           {...register("shortDescription", {
-            required: "This field is required",
+            // required: "This field is required",
           })}
           error={!!(errors as any)?.shortDescription}
           helperText={(errors as any)?.shortDescription?.message}
@@ -69,11 +86,10 @@ const CreateApp = () => {
           type="text"
           label={"Short description"}
           name="shortDescription"
-          required
         />
         <TextField
           {...register("description", {
-            required: "This field is required",
+            // required: "This field is required",
           })}
           error={!!(errors as any)?.description}
           helperText={(errors as any)?.description?.message}
@@ -83,6 +99,19 @@ const CreateApp = () => {
           type="text"
           label={"Description"}
           name="description"
+        />
+        <TextField
+          {...register("url", {
+            required: "This field is required",
+          })}
+          error={!!(errors as any)?.url}
+          helperText={(errors as any)?.url?.message}
+          margin="normal"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          type="text"
+          label={"Url"}
+          name="url"
         />
         <Controller
           control={control}
@@ -96,9 +125,7 @@ const CreateApp = () => {
               {...field}
               onChange={(_, value) => {
                 field.onChange(value.id);
-                setCategory(value);
               }}
-              value={category}
               getOptionLabel={(item) => {
                 return (
                   categoryAutocompleteProps?.options?.find((p) => {
@@ -200,7 +227,7 @@ const CreateApp = () => {
                   <VisuallyHiddenInput
                     type="file"
                     {...register("appIcon", {
-                      required: "This field is required",
+                      // required: "This field is required",
                     })}
                     onChange={handleChange}
                   />
@@ -209,7 +236,7 @@ const CreateApp = () => {
             );
           }}
         />
-        <img src={file} alt="app-logo" width={80} height={80} />
+        <img src={previewImage} alt="app-logo" width={80} height={80} />
       </Box>
     </Create>
   );

@@ -210,6 +210,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
           >
             <ListItemButton
               component={ActiveLink}
+              prefetch={true}
               to={route}
               selected={isSelected}
               style={linkStyle}
@@ -258,6 +259,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
       >
         <ListItemButton
           component={ActiveLink}
+          prefetch={true}
           to="/"
           selected={selectedKey === "/"}
           onClick={() => {

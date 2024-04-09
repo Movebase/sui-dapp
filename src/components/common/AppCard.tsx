@@ -5,6 +5,7 @@ import { Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import { Url } from "next/dist/shared/lib/router/router";
 import twMerge from "../../helper/twMerge";
+import CustomImage from "./Image";
 
 interface AppCardProps {
   title: string;
@@ -23,14 +24,14 @@ const AppCard = ({
   return (
     <Link href={href} className={twMerge` ${className}`}>
       <Card
-        className="flex gap-3 items-center p-4 py-3"
+        className="flex gap-3  items-center p-4 py-3"
         sx={{
           ":hover": {
             boxShadow: "0px 4px 30px 0px rgba(4, 6, 15, 0.1)",
           },
         }}
       >
-        <Image
+        <CustomImage
           src={src}
           alt=""
           width={50}

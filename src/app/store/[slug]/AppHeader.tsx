@@ -8,8 +8,10 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import ankr from "../../asset/ankr.svg";
+import { AppDetail } from "./AppDetail";
+import CustomImage from "../../../components/common/Image";
 
-const AppHeader = () => {
+const AppHeader = ({ data }: { data: AppDetail | undefined }) => {
   return (
     <Stack spacing={2}>
       <Stack
@@ -19,13 +21,13 @@ const AppHeader = () => {
         className="flex-col mb:flex-row gap-3 mb:gap-0 items-start mb:items-center"
       >
         <Box className="flex gap-3 items-center ">
-          <Image src={ankr.src} alt="" width={60} height={60} />
+          <CustomImage src={data?.icon} />
           <Stack>
             <Typography className="text-grey-900" variant="h6">
-              Ankr
+              {data?.name}
             </Typography>
             <Typography className="text-grey-300">
-              Web 3.0 Infrastructure Providers
+              {data?.shortDescription}
             </Typography>
           </Stack>
         </Box>
@@ -36,14 +38,7 @@ const AppHeader = () => {
           Open app
         </Button>
       </Stack>
-      <Typography className="text-justify">
-        Ankr is a Web 3.0 infrastructure provider that offers a globally
-        distributed network of nodes for multi-chain access across 40+
-        blockchains. It makes accessing Web 3.0 easy by providing distributed,
-        multi-cloud blockchain infrastructure for one-click node deployment and
-        management, as well as instant API access to major blockchains and DeFi
-        protocols for developers.
-      </Typography>
+      <Typography className="text-justify">{data?.description}</Typography>
     </Stack>
   );
 };

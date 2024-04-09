@@ -1,7 +1,8 @@
 import { CrudFilters } from "@refinedev/core";
 import { mapOperator } from "./mapOperator";
+import { RequestQueryBuilder } from "@nestjsx/crud-request";
 
-export const generateFilter = (filters?: CrudFilters) => {
+const generateFilter = (filters?: CrudFilters) => {
   const queryFilters: { [key: string]: string } = {};
 
   if (filters) {
@@ -27,4 +28,14 @@ export const generateFilter = (filters?: CrudFilters) => {
   }
 
   return queryFilters;
+};
+
+export const handleFilter = (
+  query: RequestQueryBuilder,
+  filters?: CrudFilters
+) => {
+  if (filters) {
+    query.search(generateFilter(filters));
+  }
+  return query;
 };

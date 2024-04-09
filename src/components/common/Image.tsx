@@ -1,0 +1,17 @@
+import Image from "next/image";
+import React from "react";
+import { apiUrl } from "../../providers/api";
+interface CustomImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {}
+const CustomImage = (params: CustomImageProps) => {
+  const { src, height = 60, width = 60, alt = "logo" } = params;
+  return (
+    <img
+      src={`${apiUrl}/storage/dapps${params.src}`}
+      alt={alt}
+      width={width as number}
+      height={height as number}
+    />
+  );
+};
+
+export default CustomImage;

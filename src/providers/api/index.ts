@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = process.env.NEXT_PUBLIC_DAPP_API_URL;
+export const apiUrl = process.env.NEXT_PUBLIC_DAPP_API_URL;
 
 const API = axios.create({
   baseURL: apiUrl,
@@ -10,7 +10,11 @@ export default API;
 API.interceptors.request.use(
   (config) => {
     // Modify the request configuration before sending it
-    config.headers.Authorization = `${localStorage.getItem("token")}`;
+    const token =
+      typeof window !== "undefined" && localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {

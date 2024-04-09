@@ -3,7 +3,6 @@
 import { Refine } from "@refinedev/core";
 import { RefineKbar } from "@refinedev/kbar";
 import routerProvider from "@refinedev/nextjs-router";
-// import { cookies } from "next/headers";
 import { authProvider } from "@providers/auth-provider";
 // import { dataProvider } from "@providers/data-provider";
 import React from "react";
