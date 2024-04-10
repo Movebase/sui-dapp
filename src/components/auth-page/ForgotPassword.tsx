@@ -1,3 +1,4 @@
+"use client";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -10,15 +11,13 @@ import MuiLink from "@mui/material/Link";
 import type { BoxProps } from "@mui/material/Box";
 import type { CardContentProps } from "@mui/material/CardContent";
 
-import {
-  ForgotPasswordFormTypes,
-  ForgotPasswordPageProps,
-} from "@refinedev/core";
 import { useForm } from "@refinedev/react-hook-form";
 import * as React from "react";
 
 import {
   BaseRecord,
+  ForgotPasswordFormTypes,
+  ForgotPasswordPageProps,
   HttpError,
   useForgotPassword,
   useLink,

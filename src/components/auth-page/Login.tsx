@@ -1,10 +1,5 @@
 "use client";
-import {
-  LoginFormTypes,
-  LoginPageProps,
-  useActiveAuthProvider,
-  useGo,
-} from "@refinedev/core";
+
 import { useForm } from "@refinedev/react-hook-form";
 import { FormProvider } from "react-hook-form";
 
@@ -27,6 +22,9 @@ import type { CardContentProps } from "@mui/material/CardContent";
 import {
   BaseRecord,
   HttpError,
+  LoginFormTypes,
+  LoginPageProps,
+  useActiveAuthProvider,
   useLink,
   useLogin,
   useRouterContext,
@@ -86,8 +84,7 @@ export const LoginPage: React.FC<LoginProps> = ({
   const routerType = useRouterType();
   const Link = useLink();
   const { Link: LegacyLink } = useRouterContext();
-  // const [muatateLogin, { data, isSuccess }] = useLoginMutation();
-  const go = useGo();
+
   const ActiveLink = routerType === "legacy" ? LegacyLink : Link;
   const PageTitle =
     title === false ? null : (

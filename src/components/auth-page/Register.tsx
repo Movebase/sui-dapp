@@ -1,9 +1,6 @@
+"use client";
 import * as React from "react";
-import {
-  RegisterFormTypes,
-  RegisterPageProps,
-  useActiveAuthProvider,
-} from "@refinedev/core";
+
 import { useForm } from "@refinedev/react-hook-form";
 
 import Button from "@mui/material/Button";
@@ -28,6 +25,9 @@ import {
   useRouterType,
   useLink,
   useRegister,
+  RegisterPageProps,
+  RegisterFormTypes,
+  useActiveAuthProvider,
 } from "@refinedev/core";
 import { FormPropsType } from "@refinedev/mui/dist/components/pages/auth";
 import { ThemedTitleV2 } from "@refinedev/mui";

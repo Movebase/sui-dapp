@@ -1,11 +1,10 @@
 "use client";
 
-import { Typography } from "@mui/material";
-import { Authenticated, useIsAuthenticated } from "@refinedev/core";
+import { useIsAuthenticated } from "@refinedev/core";
 import { Suspense } from "react";
 import { ErrorComponent } from "../components/common/Error";
 import { ThemedLayout } from "../components/themed-layout";
-import Layout from "./store/layout";
+import CustomLayout from "./store/layout";
 
 export default function NotFound() {
   const { data } = useIsAuthenticated();
@@ -17,9 +16,9 @@ export default function NotFound() {
           <ErrorComponent />
         </ThemedLayout>
       ) : (
-        <Layout>
+        <CustomLayout>
           <ErrorComponent className="bg-background-paper" />
-        </Layout>
+        </CustomLayout>
       )}
     </Suspense>
   );

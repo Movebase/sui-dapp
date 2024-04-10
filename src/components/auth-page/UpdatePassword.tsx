@@ -1,9 +1,5 @@
+"use client";
 import * as React from "react";
-import {
-  UpdatePasswordFormTypes,
-  UpdatePasswordPageProps,
-  useActiveAuthProvider,
-} from "@refinedev/core";
 
 import { useForm } from "@refinedev/react-hook-form";
 
@@ -21,6 +17,9 @@ import type { CardContentProps } from "@mui/material/CardContent";
 import {
   BaseRecord,
   HttpError,
+  UpdatePasswordFormTypes,
+  UpdatePasswordPageProps,
+  useActiveAuthProvider,
   useTranslate,
   useUpdatePassword,
 } from "@refinedev/core";
