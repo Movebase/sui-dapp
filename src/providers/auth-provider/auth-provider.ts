@@ -8,14 +8,7 @@ export const authProvider: AuthBindings = {
     const data = await API.post("auth/login", {
       email: email,
       password: password,
-    })
-      .then((res) => res.data)
-      .catch((err) => {
-        return Promise.reject({
-          message: "Login Error",
-          name: "yes",
-        });
-      });
+    }).then((res) => res.data);
 
     const { token, refreshToken } = data;
 
