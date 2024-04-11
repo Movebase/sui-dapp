@@ -8,7 +8,9 @@ export const getDapps = async (params: any): Promise<any> => {
   // });
   delete params.filters;
   const pathParams = new URLSearchParams(Object.entries(params));
-  const res = await API.get(`dapps?${pathParams}`).then((res) => res.data);
+  const res = await API.get(`dapps?${pathParams}`)
+    .then((res) => res.data)
+    .catch((err) => console.warn(err));
   return res;
 };
 export const getCategories = async (params: any): Promise<any> => {
