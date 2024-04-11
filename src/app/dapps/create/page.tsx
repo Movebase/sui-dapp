@@ -1,19 +1,25 @@
 "use client";
-import React, { forwardRef, useState } from "react";
-import { Autocomplete, Box, Button, TextField, styled } from "@mui/material";
-import { Create, FileField, useAutocomplete } from "@refinedev/mui";
-import { useForm } from "@refinedev/react-hook-form";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  TextField,
+  Typography,
+  styled,
+} from "@mui/material";
+import { Create, useAutocomplete } from "@refinedev/mui";
+import { useForm } from "@refinedev/react-hook-form";
+import { forwardRef, useState } from "react";
 import { Controller } from "react-hook-form";
 import { uploadDappIcon } from "../../../providers/api/dappStore";
-import { useParsed } from "@refinedev/core";
 
 const CreateApp = () => {
   const [image, setImage] = useState<any>();
   const previewImage = image && URL.createObjectURL(image);
   const {
     saveButtonProps,
-    refineCore: { onFinish, formLoading, queryResult, redirect },
+    refineCore: { onFinish, formLoading, redirect },
     register,
     handleSubmit,
     control,
@@ -28,18 +34,14 @@ const CreateApp = () => {
       redirect: false,
       onMutationSuccess: async (data: any, variables, context, isAutoSave) => {
         const formData = new FormData();
-
-        if (image) {
-          formData.append("image", image);
-          const res = await uploadDappIcon(data?.data.id, formData).then(
-            (res) => {
-              redirect("list");
-            }
-          );
-        }
+        formData.append("image", image);
+        await uploadDappIcon(data?.data.id, formData).then((res) => {
+          redirect("list");
+        });
       },
     },
   });
+
   const { autocompleteProps: categoryAutocompleteProps } = useAutocomplete({
     resource: "categories",
   });
@@ -49,7 +51,6 @@ const CreateApp = () => {
     onFinish(values);
   };
   const handleChange = (e: any) => {
-    const file = e.target.files[0];
     setImage(e.target.files[0]);
   };
   return (
@@ -160,83 +161,49 @@ const CreateApp = () => {
             />
           )}
         />
-        {/* <Controller
-          control={control}
-          name={"category.id"}
-          rules={{ required: "This field is required" }}
-          // eslint-disable-next-line
-          defaultValue={null as any}
-          render={({ field }) => (
-            <Autocomplete
-              options={usersAutocompleteProps?.options ?? []}
-              {...field}
-              onChange={(_, value) => {
-                field.onChange(value?.id);
-                setCategory(value);
-              }}
-              value={category}
-              getOptionLabel={(item) => {
-                return (
-                  usersAutocompleteProps?.options?.find((p) => {
-                    const itemId =
-                      typeof item === "object"
-                        ? item?.id?.toString()
-                        : item?.toString();
-                    const pId = p?.id?.toString();
-                    return itemId === pId;
-                  })?.name ?? ""
-                );
-              }}
-              isOptionEqualToValue={(option, value) => {
-                const optionId = option?.id?.toString();
-                const valueId =
-                  typeof value === "object"
-                    ? value?.id?.toString()
-                    : value?.toString();
-                return value === undefined || optionId === valueId;
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label={"User"}
-                  margin="normal"
-                  variant="outlined"
-                  error={!!(errors as any)?.user?.id}
-                  helperText={(errors as any)?.user?.id?.message}
-                  required
-                />
-              )}
-            />
-          )}
-        /> */}
+
         <Controller
           control={control}
           name="appIcon"
-          render={() => {
+          rules={{ required: "This field is required" }}
+          render={({ field }) => {
             return (
-              <>
-                <Button
-                  role={undefined}
-                  variant="contained"
-                  className="w-1/4"
-                  component={LabelRef}
-                  tabIndex={-1}
-                  startIcon={<CloudUploadIcon />}
-                >
-                  Upload image
-                  <VisuallyHiddenInput
-                    type="file"
-                    {...register("appIcon", {
-                      // required: "This field is required",
-                    })}
-                    onChange={handleChange}
-                  />
-                </Button>
-              </>
+              <Button
+                role={undefined}
+                variant="contained"
+                className="w-1/4"
+                component={LabelRef}
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+              >
+                Upload image
+                <VisuallyHiddenInput
+                  type="file"
+                  accept=".png, .jpg, .jpeg"
+                  name="url"
+                  onChange={(e) => {
+                    handleChange(e);
+                    field.onChange(e);
+                  }}
+                />
+              </Button>
             );
           }}
         />
-        <img src={previewImage} alt="app-logo" width={80} height={80} />
+        {errors?.appIcon && (
+          <Typography className="text-error-main text-[12px] ml-[14px] py-1">
+            {(errors as any)?.appIcon?.message}
+          </Typography>
+        )}
+        {image && (
+          <img
+            src={previewImage}
+            alt="app-logo"
+            width={80}
+            height={80}
+            className="pt-4"
+          />
+        )}
       </Box>
     </Create>
   );
