@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  dapp-frontend:
+    container_name: dapp-frontend
+    image: registry.zepto.vn/web3/dapp-frontend:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    networks:
+      - base-project
+    ports:
+      - "3000:3000"
+#    restart: "always"
+
+networks:
+  base-project:
+    external: true

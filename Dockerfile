@@ -1,43 +1,74 @@
-FROM refinedev/node:18 AS base
-
-FROM base AS deps
-
+# Install dependencies only when needed
+FROM node:18-alpine AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
+# Install BASH to make our lives easier for entrypoint.sh...
+RUN apk add bash
 
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+WORKDIR /app
+COPY package.json yarn.lock ./
+COPY src/services/api/swagger.json ./src/services/api/swagger.json
+RUN yarn install --frozen-lockfile --network-timeout 100000
 
-FROM base AS builder
+# Rebuild the source code only when needed
+FROM node:18-alpine AS builder
 
-COPY --from=deps /app/refine/node_modules ./node_modules
+# Install BASH to make our lives easier for entrypoint.sh...
+RUN apk add bash
 
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npm run build
+RUN \
+  NEXT_PUBLIC_DAPP_API_URL=APP_NEXT_PUBLIC_DAPP_API_URL \
+  yarn build
 
-FROM base AS runner
+# Production image, copy all the files and run next
+FROM node:18-alpine AS runner
 
+# Install BASH to make our lives easier for entrypoint.sh...
+RUN apk add bash
+
+WORKDIR /app
 ENV NODE_ENV production
 
-COPY --from=builder /app/refine/public ./public
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
 
-RUN mkdir .next
-RUN chown refine:nodejs .next
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
 
-COPY --from=builder --chown=refine:nodejs /app/refine/.next/standalone ./
-COPY --from=builder --chown=refine:nodejs /app/refine/.next/static ./.next/static
+# Set mode "standalone" in file "next.config.js"
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
 
-USER refine
+# Next.js collects completely anonymous telemetry data about general usage.
+# Learn more here: https://nextjs.org/telemetry
+# Uncomment the following line in case you want to disable telemetry.
+# ENV NEXT_TELEMETRY_DISABLED 1
+
+############
+# Permissions to write files when executing entrypoint
+RUN chown -R nextjs:nodejs /app
+
+# https://devpress.csdn.net/cloudnative/62f319d77e66823466186213.html
+# https://www.tomoliver.net/posts/nextjs-docker-public-env-vars
+# Handle Entrypoint
+COPY --from=builder /app/entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+ENTRYPOINT ["/bin/bash", "/app/entrypoint.sh"]
+############
+
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
 
 EXPOSE 3000
-
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
 
 CMD ["node", "server.js"]
