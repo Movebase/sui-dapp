@@ -8,8 +8,8 @@ import twMerge from "../../helper/twMerge";
 import CustomImage from "./Image";
 
 interface AppCardProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   src: string;
   href: Url;
   className?: string;

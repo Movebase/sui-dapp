@@ -33,7 +33,9 @@ import {
 } from "@refinedev/core";
 import { ThemedTitleV2 } from "@refinedev/mui";
 import { FormPropsType } from "@refinedev/mui/dist/components/pages/auth";
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
+import { IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export const layoutStyles: CSSProperties = {};
 
@@ -84,8 +86,11 @@ export const LoginPage: React.FC<LoginProps> = ({
   const routerType = useRouterType();
   const Link = useLink();
   const { Link: LegacyLink } = useRouterContext();
-
+  const [showPassword, setShowPassword] = useState(false);
   const ActiveLink = routerType === "legacy" ? LegacyLink : Link;
+  const handleClick = () => {
+    setShowPassword(!showPassword);
+  };
   const PageTitle =
     title === false ? null : (
       <div
@@ -202,11 +207,27 @@ export const LoginPage: React.FC<LoginProps> = ({
               label={translate("pages.login.fields.password", "Password")}
               helperText={errors?.password?.message}
               error={!!errors.password}
-              type="password"
-              placeholder="●●●●●●●●"
+              type={showPassword ? "text" : "password"}
               autoComplete="current-password"
               InputLabelProps={{
                 shrink: true,
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={translate(
+                        showPassword
+                          ? "ra.input.password.toggle_visible"
+                          : "ra.input.password.toggle_hidden"
+                      )}
+                      onClick={handleClick}
+                      size="large"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
               }}
               sx={{
                 mb: 0,

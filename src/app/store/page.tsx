@@ -159,10 +159,10 @@ const Store = () => {
               return (
                 <AppCard
                   key={index}
-                  description={item.description}
-                  title={item.name}
-                  src={item.icon}
-                  href={`/store/${item.id}`}
+                  description={item?.description}
+                  title={item?.name}
+                  src={item?.icon}
+                  href={`/store/${item?.id}`}
                   className="mb:col-span-3 md:col-span-1 "
                 />
               );

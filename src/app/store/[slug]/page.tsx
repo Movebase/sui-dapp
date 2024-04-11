@@ -1,7 +1,7 @@
 import { getDapps } from "../../../providers/api/dappStore";
 import AppDetail from "./AppDetail";
 
-export const dynamicParams = false; // true | false,
+export const dynamicParams = true; // true | false,
 export const generateStaticParams = async () => {
   const apps = await getDapps({});
   if (!apps || apps.length === 0) {
