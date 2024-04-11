@@ -8,7 +8,6 @@ RUN apk add bash
 
 WORKDIR /app
 COPY package.json yarn.lock ./
-COPY src/services/api/swagger.json ./src/services/api/swagger.json
 RUN yarn install --frozen-lockfile --network-timeout 100000
 
 # Rebuild the source code only when needed
@@ -42,8 +41,8 @@ RUN adduser -S nextjs -u 1001
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 
 # Set mode "standalone" in file "next.config.js"
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.mjs ./
+#COPY --from=builder /app/public ./public
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
