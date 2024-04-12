@@ -10,5 +10,13 @@
       #f8a745 149.33%
     );
   }
+  ::-webkit-scrollbar {
+    width: 12px;
+    max-height: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background-color: #d1d5db;
+  }
   /* ... */
 }
