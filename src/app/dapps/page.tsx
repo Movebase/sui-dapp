@@ -11,6 +11,7 @@ import {
 import React from "react";
 import { useDataGrid } from "../../hook/useDatagrid";
 import { apiUrl } from "../../providers/api";
+import CustomImage from "../../components/common/Image";
 
 // export const revalidate = +(process.env.NEXT_REVALIDATION_TIME || 0) || 3600;
 // export const dynamic = "force-static";
@@ -46,10 +47,12 @@ const DApps = () => {
         maxWidth: 100,
         renderCell: function render({ row }) {
           return (
-            <img
-              src={`${apiUrl}/storage/dapps${row.icon}`}
+            <CustomImage
+              src={row.icon}
               alt="logo"
-              className="w-16 h-16"
+              width={70}
+              height={70}
+              className="rounded-xl p-1 flex h-[70px] object-contain items-center justify-center"
             />
           );
         },

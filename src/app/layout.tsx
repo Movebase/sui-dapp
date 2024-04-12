@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const theme = typeof window !== "undefined" && localStorage.getItem("theme");
-  const defaultMode = theme === "dark" ? "dark" : "light";
+  const defaultMode = "light";
 
   return (
     <html lang="en">
