@@ -8,7 +8,7 @@ import {
   Stack,
 } from "@mui/material";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import AppCard from "../../components/common/AppCard";
 import SearchInput from "../../components/common/SearchInput";
@@ -71,6 +71,10 @@ const Store = () => {
   const handleChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value as string);
   };
+
+  useEffect(() => {
+    typeof window !== "undefined" && localStorage.removeItem("theme");
+  }, []);
 
   return (
     <div className="flex flex-col items-center gap-3">

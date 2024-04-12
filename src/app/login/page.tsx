@@ -1,6 +1,15 @@
+"use client";
 import { AuthPage } from "@components/auth-page";
-import { redirect } from "next/navigation";
+import { useGo, useIsAuthenticated } from "@refinedev/core";
 
-export default async function Login() {
-  return <AuthPage type="login" />;
+export default function Login() {
+  const { data, isFetching } = useIsAuthenticated();
+  const go = useGo();
+  if (isFetching) {
+    return;
+  } else if (data?.authenticated) {
+    go({ to: "/dapps" });
+  } else {
+    return <AuthPage type="login" />;
+  }
 }

@@ -1,11 +1,11 @@
 "use client";
 
 import { authProvider } from "@providers/auth-provider";
-import { Refine } from "@refinedev/core";
+import { Refine, useGo, useIsAuthenticated } from "@refinedev/core";
 import { RefineKbar } from "@refinedev/kbar";
 import routerProvider from "@refinedev/nextjs-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import "react-multi-carousel/lib/styles.css";
 import "../index.css";
 import { dapps } from "./dapps";

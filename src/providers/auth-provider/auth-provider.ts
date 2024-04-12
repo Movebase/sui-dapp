@@ -17,7 +17,7 @@ export const authProvider: AuthBindings = {
       localStorage.setItem("refreshToken", refreshToken);
       return {
         success: true,
-        redirectTo: "/",
+        redirectTo: "/dapps",
       };
     }
     return {

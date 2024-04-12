@@ -170,31 +170,29 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordProps> = ({
   );
 
   return (
-    <>
-      <Box component="div" style={layoutStyles} {...(wrapperProps ?? {})}>
-        <Container
-          component="main"
-          maxWidth="xs"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            minHeight: "100dvh",
-            padding: "16px",
-            width: "100%",
-            maxWidth: "400px",
-          }}
-        >
-          {renderContent ? (
-            renderContent(Content, PageTitle)
-          ) : (
-            <>
-              {PageTitle}
-              {Content}
-            </>
-          )}
-        </Container>
-      </Box>
-    </>
+    <Box component="div" style={layoutStyles} {...(wrapperProps ?? {})}>
+      <Container
+        component="main"
+        maxWidth="xs"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          minHeight: "100dvh",
+          padding: "16px",
+          width: "100%",
+          maxWidth: "400px",
+        }}
+      >
+        {renderContent ? (
+          renderContent(Content, PageTitle)
+        ) : (
+          <>
+            {/* {PageTitle} */}
+            {Content}
+          </>
+        )}
+      </Container>
+    </Box>
   );
 };

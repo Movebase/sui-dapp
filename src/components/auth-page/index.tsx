@@ -1,14 +1,14 @@
-import React from "react";
 import type { BoxProps } from "@mui/material/Box";
 import type { CardProps } from "@mui/material/Card";
+import React from "react";
 
 import { AuthPageProps, RegisterFormTypes } from "@refinedev/core";
 
 import { UseFormProps } from "@refinedev/react-hook-form";
 
+import { ForgotPasswordPage } from "./ForgotPassword";
 import { LoginPage } from "./Login";
 import { RegisterPage } from "./Register";
-import { ForgotPasswordPage } from "./ForgotPassword";
 import { UpdatePasswordPage } from "./UpdatePassword";
 
 export interface FormPropsType extends UseFormProps {

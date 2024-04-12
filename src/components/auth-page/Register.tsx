@@ -279,7 +279,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
             renderContent(Content, PageTitle)
           ) : (
             <>
-              {PageTitle}
+              {/* {PageTitle} */}
               {Content}
             </>
           )}

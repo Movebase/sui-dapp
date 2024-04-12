@@ -1,20 +1,27 @@
-import { Box, Button, Typography } from "@mui/material";
+"use client";
+import { Box, Button, IconButton, Typography } from "@mui/material";
 import { User } from "iconoir-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../../app/asset/logo.svg";
 import name from "../../app/asset/name.svg";
 import twMerge from "../../helper/twMerge";
+import { ColorModeContext } from "../../contexts/color-mode";
+import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {}
 
 const CustomLayout = (props: Props) => {
   const { className, children, ...rest } = props;
+
   return (
-    <div
-      className={twMerge`min-h-screen bg-background-paper ${className}`}
+    <Box
+      className={twMerge`min-h-screen  ${className}`}
       {...rest}
+      sx={{
+        bgcolor: "background.paper",
+      }}
     >
       <Box
         className="flex h-16 w-full flex-row items-center justify-between overflow-hidden bg-background-paper px-6 py-3 text-center"
@@ -38,6 +45,7 @@ const CustomLayout = (props: Props) => {
             height={10}
           />
         </Link>
+
         <Link href={"/login"} className="flex flex-row items-center">
           <Button
             variant="text"
@@ -56,7 +64,7 @@ const CustomLayout = (props: Props) => {
         </Link>
       </Box>
       {children}
-    </div>
+    </Box>
   );
 };
 
