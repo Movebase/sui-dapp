@@ -364,7 +364,7 @@ export const LoginPage: React.FC<LoginProps> = ({
               renderContent(Content, PageTitle)
             ) : (
               <>
-                {PageTitle}
+                {/* {PageTitle} */}
                 {Content}
               </>
             )}

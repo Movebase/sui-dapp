@@ -19,7 +19,9 @@ declare module "@mui/material/styles" {
 const darkPalette: PaletteOptions = {
   mode: "dark",
   primary: {
-    main: "#67be23",
+    light: "#B8D2F5", // 100
+    main: "#196FE0", // 500
+    dark: "#124F9F", // 700
     contrastText: "#fff",
   },
   secondary: {
@@ -31,20 +33,27 @@ const darkPalette: PaletteOptions = {
     paper: "#242424",
   },
   success: {
-    main: "#67be23",
+    light: "#B0EDCC",
+    main: "#00C65B",
+    dark: "#008D41",
     contrastText: "#fff",
   },
-
   error: {
-    main: "#ee2a1e",
+    light: "#FCCBCB",
+    main: "#F65757",
+    dark: "#AF3E3E",
     contrastText: "#fff",
   },
   warning: {
-    main: "#fa8c16",
+    light: "#FFDEC5",
+    main: "#FF9443",
+    dark: "#B56930",
     contrastText: "#fff",
   },
   info: {
-    main: "#1890ff",
+    light: "#C5EEFB",
+    main: "#45C8F1",
+    dark: "#318EAB",
     contrastText: "#fff",
   },
   divider: "rgba(0,0,0,0)",
@@ -57,11 +66,9 @@ const darkPalette: PaletteOptions = {
 const lightPalette: PaletteOptions = {
   mode: "light",
   primary: {
-    main: "#67be23",
-    light: "#67be93",
-    dark: "#67ae00",
-    walletStart: "#FD368F",
-    walletEnd: "#F8A745",
+    light: "#B8D2F5", // 100
+    main: "#196FE0", // 500
+    dark: "#124F9F", // 700
     contrastText: "#fff",
   },
   grey: {
@@ -76,7 +83,9 @@ const lightPalette: PaletteOptions = {
     900: "#0A0D13",
   },
   secondary: {
-    main: "#2A132E",
+    light: "#F0F1F2",
+    main: "#8A8D93",
+    dark: "#4D5056",
     contrastText: "#fff",
   },
   background: {
@@ -84,19 +93,27 @@ const lightPalette: PaletteOptions = {
     paper: "#ffffff",
   },
   success: {
-    main: "#67ce23",
+    light: "#B0EDCC",
+    main: "#00C65B",
+    dark: "#008D41",
     contrastText: "#fff",
   },
   error: {
-    main: "#fa541c",
+    light: "#FCCBCB",
+    main: "#F65757",
+    dark: "#AF3E3E",
     contrastText: "#fff",
   },
   warning: {
-    main: "#fa8c16",
+    light: "#FFDEC5",
+    main: "#FF9443",
+    dark: "#B56930",
     contrastText: "#fff",
   },
   info: {
-    main: "#0b82f0",
+    light: "#C5EEFB",
+    main: "#45C8F1",
+    dark: "#318EAB",
     contrastText: "#fff",
   },
   divider: "rgba(0,0,0,0)",
