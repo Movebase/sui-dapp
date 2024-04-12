@@ -1,20 +1,18 @@
 "use client";
 
+import { authProvider } from "@providers/auth-provider";
 import { Refine } from "@refinedev/core";
 import { RefineKbar } from "@refinedev/kbar";
 import routerProvider from "@refinedev/nextjs-router";
-import { authProvider } from "@providers/auth-provider";
-// import { dataProvider } from "@providers/data-provider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import "react-multi-carousel/lib/styles.css";
 import "../index.css";
-import { users } from "./users";
 import { dapps } from "./dapps";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { QueryClient } from "@tanstack/react-query";
-// import { useNotificationProvider } from "@refinedev/mui";
+import { users } from "./users";
 import { dataProvider } from "../providers/data-provider";
 import { useNotificationProvider } from "../providers/noti-provider";
+import { categories } from "./categories";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,22 +34,7 @@ const App = ({
         dataProvider={dataProvider}
         notificationProvider={useNotificationProvider}
         authProvider={authProvider}
-        resources={[
-          // {
-          //   name: "dashboard",
-          //   list: "/dashboard",
-          //   create: "/dashboard/create",
-          // },
-          {
-            name: "categories",
-            list: "/categories",
-            create: "/categories/create",
-            edit: "/categories/edit/:id",
-            show: "/categories/show/:id",
-          },
-          { ...users },
-          { ...dapps },
-        ]}
+        resources={[{ ...dapps }, { ...categories }, { ...users }]}
         options={{
           syncWithLocation: true,
           warnWhenUnsavedChanges: true,
