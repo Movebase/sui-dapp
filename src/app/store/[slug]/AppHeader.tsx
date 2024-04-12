@@ -18,10 +18,13 @@ const AppHeader = ({ data }: { data: AppDetail | undefined }) => {
         direction={"row"}
         justifyContent="space-between"
         alignItems="center"
-        className="flex-col mb:flex-row gap-3 mb:gap-0 items-start mb:items-center"
+        className="flex-col mb:flex-row gap-3 mb:gap-5 items-start mb:items-center"
       >
         <Box className="flex gap-3 items-center ">
-          <CustomImage src={data?.icon} />
+          <CustomImage
+            src={data?.icon}
+            className="rounded-xl flex h-[70px] object-contain items-center justify-center"
+          />
           <Stack>
             <Typography className="text-grey-900" variant="h6">
               {data?.name}
@@ -33,7 +36,7 @@ const AppHeader = ({ data }: { data: AppDetail | undefined }) => {
         </Box>
         <Button
           variant="contained"
-          className="wallet rounded-2xl w-full mb:w-auto"
+          className="wallet min-w-[100px] rounded-2xl w-full mb:w-auto"
         >
           Open app
         </Button>

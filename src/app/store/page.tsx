@@ -151,7 +151,7 @@ const Store = () => {
         {/* <Suspense fallback={<Loading />}> */}
         <div className="col-span-1 mb:col-span-6 md:col-span-4 gap-2 overflow-y-auto">
           <InfiniteScroll
-            className="grid grid-cols-1 mb:grid-cols-6 md:grid-cols-3 gap-3 mb:gap-6 p-6"
+            className="grid grid-cols-3 mb:grid-cols-6 md:grid-cols-3 gap-7 mb:gap-6 p-6"
             hasMore={hasNextPage ?? false}
             dataLength={flattenApps?.length ?? 0}
             next={fetchNextPage}
