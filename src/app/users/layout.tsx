@@ -8,10 +8,5 @@ export const metadata: Metadata = {
   title: "New Title",
 };
 export default async function Layout({ children }: React.PropsWithChildren) {
-  const data = checkAuth();
-
-  if (!data?.authenticated) {
-    return redirect(data?.redirectTo ?? "/login");
-  }
   return <ThemedLayout>{children}</ThemedLayout>;
 }

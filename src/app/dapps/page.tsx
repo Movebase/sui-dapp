@@ -5,8 +5,11 @@ import { CreateButton, DeleteButton, EditButton, List } from "@refinedev/mui";
 import React from "react";
 import CustomImage from "../../components/common/Image";
 import { useDataGrid } from "../../hook/useDatagrid";
+import { checkAuth } from "../../helper/checkAuth";
+import { redirect } from "next/navigation";
 
 const DApps = () => {
+  const data = checkAuth();
   const { dataGridProps } = useDataGrid({
     syncWithLocation: false,
   });
@@ -68,6 +71,9 @@ const DApps = () => {
     ],
     []
   );
+  if (!data?.authenticated) {
+    return redirect(data?.redirectTo ?? "/login");
+  }
   return (
     <List
       headerButtons={
