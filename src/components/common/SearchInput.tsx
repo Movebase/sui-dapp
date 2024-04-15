@@ -5,8 +5,9 @@ import { debounce } from "lodash";
 import { Search } from "iconoir-react";
 interface SearchInputProps {
   defaultFilter?: Record<string, any>;
-  onFilterChange?: (filter: Record<string, any> | undefined) => void;
+  onFilterChange?: (filter: any) => void;
   className?: string;
+  filterFields: string[];
   label?: string;
   placeholder?: string;
   disabled?: boolean;
@@ -15,20 +16,20 @@ const SearchInput = (props: SearchInputProps) => {
   const {
     defaultFilter,
     onFilterChange,
+    filterFields,
     className,
     label,
     placeholder,
     disabled,
   } = props;
   const [value, setValue] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const onChange = debounce((e: any) => {
-    //   const value = e?.target?.value;
-    //   const filter = { ...defaultFilter };
-    //   filterFields.forEach(
-    //     (field) => (filter[field] = value ? value : undefined)
-    //   );
-    //   onFilterChange?.(filter);
+    const value = e?.target?.value;
+    const filter = { ...defaultFilter };
+    filterFields.forEach(
+      (field) => (filter[field] = value ? value : undefined)
+    );
+    onFilterChange?.(filter);
   }, 500);
 
   return (
@@ -43,7 +44,6 @@ const SearchInput = (props: SearchInputProps) => {
         fullWidth
         label={label}
         onChange={(e) => {
-          setIsTyping(true);
           setValue(e.target.value);
           onChange(e);
         }}

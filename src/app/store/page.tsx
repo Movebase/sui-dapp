@@ -5,7 +5,6 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  Stack,
 } from "@mui/material";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -13,24 +12,24 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import AppCard from "../../components/common/AppCard";
 import SearchInput from "../../components/common/SearchInput";
 import { getCategories, getDapps } from "../../providers/api/dappStore";
+import Banner from "./common/Banner";
+import CategorySelect from "./common/CategorySelect";
 
 const LIMIT = 25;
 const Store = () => {
-  const [category, setCategory] = useState("All");
+  const [filter, setFilter] = useState({
+    name: "",
+    category: "All",
+  });
   const { data, refetch, fetchNextPage, hasNextPage } = useInfiniteQuery<any>({
     initialPageParam: 1,
-    queryKey: ["store", category],
+    queryKey: ["store", filter],
     queryFn: ({ pageParam = 1 }) => {
       return getDapps({
         page: pageParam,
         limit: LIMIT,
         offset: 0,
-        filters: [
-          {
-            field: "category",
-            value: category,
-          },
-        ],
+        filter: filter,
       });
     },
     getNextPageParam: (lastPage, pages) => {
@@ -68,90 +67,32 @@ const Store = () => {
   });
   const flattenApps = data?.pages?.flatMap?.((item) => item?.data);
   const flattenCategories = categories?.pages?.flatMap?.((item) => item?.data);
-  const handleChange = (event: SelectChangeEvent) => {
-    setCategory(event.target.value as string);
-  };
 
   useEffect(() => {
     typeof window !== "undefined" && localStorage.removeItem("theme");
   }, []);
 
   return (
-    <div className="flex flex-col items-center gap-3">
-      {" "}
-      {/* <Image
-        src={banner.src}
-        alt=""
-        width={1000}
-        height={370}
-        className="rounded-lg"
-      /> */}
-      <Stack direction={"row"} spacing={3} alignItems={"center"}></Stack>
+    <div className="flex flex-col items-center gap-3 ">
+      <Banner />
       <Box className="w-full grid grid-cols-1 mb:grid-cols-6 md:grid-cols-4 gap-3 mb:gap-6">
         <SearchInput
           placeholder="Search"
-          className="mb:col-span-4 md:col-span-3"
+          className="mb:col-span-4 md:col-span-3 px-6 mb:pl-6 mb:pr-0"
+          onFilterChange={setFilter}
+          defaultFilter={filter}
+          filterFields={["name"]}
         />
-        <FormControl className="mb:col-span-2 md:col-span-1">
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={category}
-            onChange={handleChange}
-            className="wallet "
-            // IconComponent={(props: any) => {
-            //   const { className } = props;
-            //   if (className.includes("MuiSelect-iconOpen")) {
-            //     return <NavArrowUp className="text-primary-contrastText" />;
-            //   } else {
-            //     return <NavArrowDown className="text-primary-contrastText" />;
-            //   }
-            // }}
-            sx={{
-              borderRadius: "26px",
-              height: "50px",
+        <CategorySelect
+          filter={filter}
+          setFilter={setFilter}
+          flattenCategories={flattenCategories}
+        />
 
-              // ":hover": {
-              //   cursor: "pointer",
-              // },
-              "& .MuiOutlinedInput-notchedOutline": {
-                border: "none",
-              },
-              "& .MuiOutlinedInput-input": {
-                // width: "auto",
-                color: "primary.contrastText",
-                display: "flex",
-                justifyContent: "center",
-              },
-              "& .MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": {
-                paddingRight: 0,
-              },
-              "&.MuiInputBase-root": {
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              },
-              "& .MuiSvgIcon-root": {
-                position: "relative",
-                right: 0,
-                top: 0,
-              },
-            }}
-          >
-            <MenuItem value="All">All</MenuItem>
-            {flattenCategories?.map((item, index) => {
-              return (
-                <MenuItem key={index} value={item.name}>
-                  {item.name}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
         {/* <Suspense fallback={<Loading />}> */}
         <div className="col-span-1 mb:col-span-6 md:col-span-4 gap-2 overflow-y-auto">
           <InfiniteScroll
-            className="grid grid-cols-3 mb:grid-cols-6 md:grid-cols-3 gap-7 mb:gap-6 p-6"
+            className="grid grid-cols-3 mb:grid-cols-6 md:grid-cols-3 gap-7 mb:gap-6 p-6 pt-0"
             hasMore={hasNextPage ?? false}
             dataLength={flattenApps?.length ?? 0}
             next={fetchNextPage}

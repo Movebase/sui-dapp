@@ -1,13 +1,27 @@
 import API from "..";
 
 export const getDapps = async (params: any): Promise<any> => {
-  // params.filters?.forEach(({ field, value }: any, index: number) => {
-  //   //filters for auditlog
+  const result: any = {
+    page: params.page,
+    limit: params.limit,
+    offset: params.offset,
+  };
 
-  //   return (params[`filter[${index}]`] = `${field}||$eq||${value}`);
-  // });
-  delete params.filters;
-  const pathParams = new URLSearchParams(Object.entries(params));
+  if (params.filter)
+    Object.entries(params.filter)
+      .filter((item) => item[1])
+      .forEach(([key, value], index) => {
+        if (key === "name") {
+          result[`filter[${index}]`] = `${key}||$cont||${value}`;
+        }
+        if (key === "category") {
+          if (value !== "All") {
+            result[`filter[${index}]`] = `category.id||$eq||${value}`;
+          }
+        }
+      });
+
+  const pathParams = new URLSearchParams(Object.entries(result));
   const res = await API.get(`dapps?${pathParams}`)
     .then((res) => res.data)
     .catch((err) => console.warn(err));
