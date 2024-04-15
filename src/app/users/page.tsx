@@ -1,23 +1,14 @@
 "use client";
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useGo, useMany, useNavigation } from "@refinedev/core";
 import {
-  DateField,
   DeleteButton,
   EditButton,
   List,
-  MarkdownField,
   ShowButton,
   useDataGrid,
 } from "@refinedev/mui";
-import Head from "next/head";
 import React from "react";
-import { useDocumentTitle } from "@refinedev/nextjs-router/pages";
-import { Metadata } from "next";
-import API from "../../providers/api";
-import { useQuery } from "@tanstack/react-query";
-import { dataProvider } from "../../providers/data-provider";
 
 export default function ListUsers() {
   const { dataGridProps } = useDataGrid({

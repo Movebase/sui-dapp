@@ -1,20 +1,11 @@
 "use client";
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import {
-  CreateButton,
-  DeleteButton,
-  EditButton,
-  List,
-  ShowButton,
-} from "@refinedev/mui";
+import { CreateButton, DeleteButton, EditButton, List } from "@refinedev/mui";
 import React from "react";
-import { useDataGrid } from "../../hook/useDatagrid";
-import { apiUrl } from "../../providers/api";
 import CustomImage from "../../components/common/Image";
+import { useDataGrid } from "../../hook/useDatagrid";
 
-// export const revalidate = +(process.env.NEXT_REVALIDATION_TIME || 0) || 3600;
-// export const dynamic = "force-static";
 const DApps = () => {
   const { dataGridProps } = useDataGrid({
     syncWithLocation: false,
