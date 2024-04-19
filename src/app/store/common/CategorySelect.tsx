@@ -26,7 +26,7 @@ const CategorySelect = ({
   };
 
   return (
-    <Box className="mb:col-span-2 md:col-span-1 px-6 mb:pr-6 mb:pl-0">
+    <Box className="mb:col-span-2 md:col-span-1  mb:px-6 mb:pr-6 mb:pl-0">
       <FormControl className="hidden mb:block w-full">
         <Select
           labelId="demo-simple-select-label"
@@ -58,7 +58,7 @@ const CategorySelect = ({
               display: "flex",
               justifyContent: "center",
             },
-            "& .MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": {
+            "&.MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input": {
               paddingRight: 0,
             },
             "&.MuiInputBase-root": {
@@ -93,7 +93,7 @@ const CategorySelect = ({
             setFilter((prev: any) => ({ ...prev, category: "All" }))
           }
           sx={{
-            minWidth: "80px",
+            minWidth: "91px",
             fontSize: "16px",
             py: "20px",
             borderRadius: "26px",
@@ -105,16 +105,17 @@ const CategorySelect = ({
               label={item.name}
               key={index}
               sx={{
-                // minWidth: "80px",
+                // minWidth: "91px",
+                // width: "100%",
                 fontSize: "16px",
                 py: "20px",
-                px: "20px",
+                px: "10px",
                 borderRadius: "26px",
               }}
               onClick={() =>
                 setFilter((prev: any) => ({ ...prev, category: item.id }))
               }
-              className={`${
+              className={` ${
                 filter.category === item.id
                   ? "wallet text-primary-contrastText"
                   : ""

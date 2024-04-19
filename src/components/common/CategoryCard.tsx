@@ -1,48 +1,46 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import Carousel from "./Carousel";
+import { useQuery } from "@tanstack/react-query";
+import { getDapps } from "../../providers/api/dappStore";
+import AppCard from "./AppCard";
 interface CategoryCardProps {
   title?: string;
-  children: any;
+  id?: string;
+  filter?: any;
 }
 const CategoryCard = (props: CategoryCardProps) => {
-  const { title, children } = props;
+  const { title, id, filter } = props;
+  const { data } = useQuery({
+    queryKey: ["category", title, filter],
+    queryFn: () => {
+      return getDapps({
+        page: 1,
+        limit: 8,
+        offset: 0,
+        filter: { category: id, name: filter?.name },
+      });
+    },
+  });
+
   return (
     <div>
-      <Box className="flex items-center justify-between">
-        <Typography variant="h6">{title}</Typography>
-        <Typography className="hover:cursor-pointer">See all</Typography>
-      </Box>
-      <Carousel
-        responsive={{
-          desktop: {
-            breakpoint: {
-              max: 3000,
-              min: 1024,
-            },
-            items: 3,
-            partialVisibilityGutter: 40,
-          },
-          mobile: {
-            breakpoint: {
-              max: 464,
-              min: 0,
-            },
-            items: 1,
-            partialVisibilityGutter: 30,
-          },
-          tablet: {
-            breakpoint: {
-              max: 1024,
-              min: 464,
-            },
-            items: 2,
-            partialVisibilityGutter: 30,
-          },
-        }}
-      >
-        {children}
-      </Carousel>
+      {data?.data?.length > 0 && (
+        <div>
+          <Box className="flex items-center justify-between">
+            <Typography variant="h6">{title}</Typography>
+            <Typography className="hover:cursor-pointer wallet-text">
+              See all
+            </Typography>
+          </Box>
+          <Box className="grid grid-cols-3 smb:grid-cols-4 gap-y-4 gap-x-2 smb:gap-4 py-5">
+            {data?.data?.map((item: any) => {
+              return (
+                <AppCard key={item.id} {...item} href={`/store/${item?.id}`} />
+              );
+            })}
+          </Box>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,19 +1,27 @@
-import type { Theme, ThemeOptions } from "@mui/material/styles";
+import type { PaletteOptions, ThemeOptions } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import { typography } from "./typography";
-import type { PaletteOptions } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
   interface PaletteOptions {
     violet?: PaletteOptions["primary"];
   }
+  interface ColorPartial {
+    50: string;
+  }
   interface PaletteColorOptions {
-    walletStart?: string;
-    walletEnd?: string;
     main?: string;
     light?: string;
     dark?: string;
     contrastText?: string;
+  }
+  interface BreakpointOverrides {
+    xs: true; // removes the `xs` breakpoint
+    smb: true;
+    sm: false;
+    md: false;
+    lg: false;
+    xl: false;
   }
 }
 const darkPalette: PaletteOptions = {
@@ -72,6 +80,7 @@ const lightPalette: PaletteOptions = {
     contrastText: "#fff",
   },
   grey: {
+    50: "#EAECF0",
     100: "#D6D9DF",
     200: "#ADB4C0",
     300: "#838FA0",
@@ -123,6 +132,17 @@ const lightPalette: PaletteOptions = {
     disabled: "#c1c1c1",
   },
 };
+const breakpoints = {
+  values: {
+    xs: 0,
+    smb: 376,
+    mb: 426,
+    sm: 600,
+    md: 960,
+    lg: 1280,
+    xl: 1920,
+  },
+};
 
 const commonThemeProperties: ThemeOptions = {
   shape: {
@@ -131,11 +151,13 @@ const commonThemeProperties: ThemeOptions = {
   typography: {
     ...typography,
   },
+  breakpoints,
 };
 
 const LightTheme = createTheme({
   ...commonThemeProperties,
   palette: lightPalette,
+
   components: {
     MuiAppBar: {
       styleOverrides: {
@@ -200,4 +222,4 @@ const DarkTheme = createTheme({
   },
 });
 
-export { LightTheme, DarkTheme, lightPalette };
+export { DarkTheme, LightTheme, lightPalette };

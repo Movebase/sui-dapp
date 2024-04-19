@@ -10,6 +10,15 @@
       #f8a745 149.33%
     );
   }
+  .wallet-text {
+    background-image: linear-gradient(
+      to right,
+      #fd368f -49.58%,
+      #f8a745 149.33%
+    );
+    color: transparent;
+    background-clip: text;
+  }
   ::-webkit-scrollbar {
     width: 12px;
     max-height: 8px;

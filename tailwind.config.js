@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import plugin from "tailwindcss";
 import { lightPalette } from "./src/contexts/color-mode/theme.ts";
 import defaultTheme from "tailwindcss/defaultTheme";
 module.exports = {
@@ -9,7 +8,8 @@ module.exports = {
       ...lightPalette,
     },
     screens: {
-      mb: "425px",
+      smb: "376px",
+      mb: "426px",
       ...defaultTheme.screens,
     },
 

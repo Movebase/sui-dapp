@@ -5,7 +5,7 @@ import banner from "../../asset/banner.svg";
 import Carousel from "../../../components/common/Carousel";
 const Banner = () => {
   return (
-    <Box className="w-full px-6 pb-6">
+    <Box className="relative w-full mb:col-span-6 md:col-span-4 col-span-1 py-4 mb:p-6 mb:pt-0">
       {/* <Image
         src={banner.src}
         alt="banner"
@@ -33,6 +33,7 @@ const Banner = () => {
             items: 1,
           },
         }}
+        renderButtonGroupOutside={true}
       >
         <img
           src={banner.src}

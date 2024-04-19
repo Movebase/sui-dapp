@@ -30,7 +30,7 @@ const AppDetail = ({ id }: { id: string }) => {
 
   return (
     <div className="flex flex-col gap-3">
-      <AppHeader data={data} />
+      {data && <AppHeader data={data} />}
       {/* <Typography variant="h6" className="text-grey-900">
         Team
       </Typography>

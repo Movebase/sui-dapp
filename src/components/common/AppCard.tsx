@@ -9,46 +9,52 @@ import CustomImage from "./Image";
 import { truncate } from "lodash";
 
 interface AppCardProps {
-  title?: string;
+  name?: string;
   description?: string;
-  src: string;
+  icon: string;
   href: Url;
   className?: string;
 }
 const AppCard = ({
-  title,
+  name,
   description,
-  src,
+  icon,
   href,
   className,
 }: AppCardProps) => {
   return (
     <Link href={href} className={twMerge` ${className}`}>
       <Card
-        className="hidden mb:flex gap-3 h-24 items-center p-0 mb:p-4 mb:py-3 justify-center mb:justify-start"
+        className="hidden mb:flex gap-3 h-24 items-center p-0 mb:p-2 lg:p-4 lg:py-3 justify-center mb:justify-start min-w-[180px]"
         sx={{
           ":hover": {
             boxShadow: "0px 4px 30px 0px rgba(4, 6, 15, 0.1)",
           },
         }}
       >
-        <CustomImage src={src} alt="" width={50} height={50} />
+        <CustomImage
+          src={icon}
+          alt=""
+          width={50}
+          height={50}
+          className="rounded-xl flex h-[50px] w-[50px]  object-contain items-center justify-center"
+        />
         <Stack spacing={1} className="hidden mb:block">
-          <Typography className="text-grey-900">{title}</Typography>
-          <Typography className="text-grey-300 overflow-hidden">
+          <Typography className="text-grey-900 ">{name}</Typography>
+          <Typography className="text-grey-300 overflow-hidden text-ellipsis h-6">
             {truncate(description, { length: 30 })}
           </Typography>
         </Stack>
       </Card>
       <Box className="flex flex-col gap-2 items-center justify-center mb:hidden">
         <CustomImage
-          src={src}
+          src={icon}
           alt=""
           width={70}
           height={70}
-          className="rounded-xl flex h-[70px] object-contain items-center justify-center"
+          className="rounded-xl flex h-[50px] w-[50px] object-contain items-center justify-center"
         />
-        <Typography className="text-grey-900">{title}</Typography>
+        <Typography className="text-grey-900 text-[14px]">{name}</Typography>
       </Box>
     </Link>
   );

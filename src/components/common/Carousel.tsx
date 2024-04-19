@@ -9,15 +9,15 @@ const defaultResponsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
-    items: 1,
+    items: 2,
   },
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 1,
+    items: 2,
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 1,
+    items: 2,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -35,7 +35,7 @@ const Carousel = (props: MyCarouselProps) => {
       className=""
       containerClass="container"
       dotListClass=""
-      draggable
+      draggable={true}
       focusOnSelect={false}
       infinite
       itemClass=""
@@ -45,7 +45,7 @@ const Carousel = (props: MyCarouselProps) => {
       pauseOnHover
       renderArrowsWhenDisabled={false}
       renderButtonGroupOutside={false}
-      renderDotsOutside={false}
+      renderDotsOutside={true}
       rewind={false}
       rewindWithAnimation={false}
       rtl={false}
@@ -55,6 +55,7 @@ const Carousel = (props: MyCarouselProps) => {
       slidesToSlide={1}
       swipeable
       responsive={responsive}
+      customDot={<CustomDot />}
       customLeftArrow={
         <NavArrowLeft
           className=" text-error-main bg-error-main"
@@ -77,3 +78,17 @@ const Carousel = (props: MyCarouselProps) => {
 };
 
 export default Carousel;
+
+const CustomDot = (props: any) => {
+  const { onClick, active } = props;
+  // onMove means if dragging or swiping in progress.
+  // active is provided by this lib for checking if the item is active or not.
+  return (
+    <button
+      className={`${
+        active ? "bg-grey-300" : "bg-grey-100"
+      } w-[10px] h-[10px] mx-[2px] rounded-full `}
+      onClick={() => onClick()}
+    ></button>
+  );
+};

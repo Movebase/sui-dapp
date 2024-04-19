@@ -10,6 +10,7 @@ import Image from "next/image";
 import ankr from "../../asset/ankr.svg";
 import { AppDetail } from "./AppDetail";
 import CustomImage from "../../../components/common/Image";
+import Link from "next/link";
 
 const AppHeader = ({ data }: { data: AppDetail | undefined }) => {
   return (
@@ -34,12 +35,12 @@ const AppHeader = ({ data }: { data: AppDetail | undefined }) => {
             </Typography>
           </Stack>
         </Box>
-        <Button
-          variant="contained"
-          className="wallet min-w-[100px] rounded-2xl w-full mb:w-auto"
+        <Link
+          className="wallet min-w-[100px] flex items-center text-primary-contrastText font-semibold justify-center py-2 rounded-2xl w-full mb:w-auto"
+          href={data?.url as string}
         >
-          Open app
-        </Button>
+          Open App
+        </Link>
       </Stack>
       <Typography className="text-justify">{data?.description}</Typography>
     </Stack>

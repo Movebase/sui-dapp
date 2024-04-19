@@ -8,7 +8,7 @@ import CustomLayout from "../../components/common/Layout";
 export default function Layout({ children }: React.PropsWithChildren) {
   return (
     <CustomLayout>
-      <Container className="mt-10">{children}</Container>
+      <Container className="mt-5 mb:mt-10">{children}</Container>
     </CustomLayout>
   );
 }

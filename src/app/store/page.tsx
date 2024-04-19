@@ -14,6 +14,7 @@ import SearchInput from "../../components/common/SearchInput";
 import { getCategories, getDapps } from "../../providers/api/dappStore";
 import Banner from "./common/Banner";
 import CategorySelect from "./common/CategorySelect";
+import CategoryCard from "../../components/common/CategoryCard";
 
 const LIMIT = 25;
 const Store = () => {
@@ -73,24 +74,23 @@ const Store = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center gap-3 ">
+    <div className="w-full grid grid-cols-1 mb:grid-cols-6 md:grid-cols-4 gap-3 mb:gap-6">
       <Banner />
-      <Box className="w-full grid grid-cols-1 mb:grid-cols-6 md:grid-cols-4 gap-3 mb:gap-6">
-        <SearchInput
-          placeholder="Search"
-          className="mb:col-span-4 md:col-span-3 px-6 mb:pl-6 mb:pr-0"
-          onFilterChange={setFilter}
-          defaultFilter={filter}
-          filterFields={["name"]}
-        />
-        <CategorySelect
-          filter={filter}
-          setFilter={setFilter}
-          flattenCategories={flattenCategories}
-        />
+      <SearchInput
+        placeholder="Search"
+        className="row-start-1 mb:row-start-auto mb:col-span-4 md:col-span-3  mb:px-6 mb:pl-6 mb:pr-0"
+        onFilterChange={setFilter}
+        defaultFilter={filter}
+        filterFields={["name"]}
+      />
+      <CategorySelect
+        filter={filter}
+        setFilter={setFilter}
+        flattenCategories={flattenCategories}
+      />
 
-        {/* <Suspense fallback={<Loading />}> */}
-        <div className="col-span-1 mb:col-span-6 md:col-span-4 gap-2 overflow-y-auto">
+      <div className="col-span-1 mb:col-span-6 md:col-span-4 gap-2 overflow-y-auto">
+        <div className="hidden mb:block">
           <InfiniteScroll
             className="grid grid-cols-3 mb:grid-cols-6 md:grid-cols-3 gap-7 mb:gap-6 p-6 pt-0"
             hasMore={hasNextPage ?? false}
@@ -105,8 +105,8 @@ const Store = () => {
                 <AppCard
                   key={index}
                   description={item?.description}
-                  title={item?.name}
-                  src={item?.icon}
+                  name={item?.name}
+                  icon={item?.icon}
                   href={`/store/${item?.id}`}
                   className="mb:col-span-3 md:col-span-1 "
                 />
@@ -114,8 +114,19 @@ const Store = () => {
             })}
           </InfiniteScroll>
         </div>
-        {/* </Suspense> */}
-      </Box>
+        <div className="block mb:hidden">
+          {flattenCategories?.map((item, index) => {
+            return (
+              <CategoryCard
+                key={index}
+                title={item.name}
+                id={item.id}
+                filter={filter}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

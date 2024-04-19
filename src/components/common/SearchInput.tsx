@@ -54,6 +54,10 @@ const SearchInput = (props: SearchInputProps) => {
           "& .MuiOutlinedInput-root": {
             borderRadius: "26px",
             height: "50px",
+            bgcolor: {
+              xs: "background.paper",
+              mb: "grey.50",
+            },
           },
         }}
         disabled={disabled}

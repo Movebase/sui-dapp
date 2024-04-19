@@ -17,28 +17,28 @@ const CustomLayout = (props: Props) => {
 
   return (
     <Box
-      className={twMerge`min-h-screen  ${className}`}
+      className={twMerge`min-h-screen bg-[#FBFCFD] mb:bg-background-paper ${className}`}
       {...rest}
-      sx={{
-        bgcolor: "background.paper",
-      }}
     >
       <Box
-        className="flex h-16 w-full flex-row items-center justify-between overflow-hidden bg-background-paper px-6 py-3 text-center"
+        className="flex h-16 w-full flex-row items-center justify-between overflow-hidden bg-[#FBFCFD] mb:bg-background-paper px-6 py-3 text-center"
         sx={{
-          boxShadow: "0px 4px 30px 0px rgba(4, 6, 15, 0.08)",
+          boxShadow: {
+            xs: "none",
+            mb: "0px 4px 30px 0px rgba(4, 6, 15, 0.08)",
+          },
         }}
       >
         <Link href={"/"} className="relative flex gap-2">
           <Image
-            className="object-contain"
+            className="object-contain w-[35px] mb:w-[50px] "
             src={logo.src}
             alt="logo"
             width={50}
             height={50}
           />
           <Image
-            className="object-contain"
+            className="object-contain w-[110px] mb:w-[150px]"
             src={name.src}
             alt="name"
             width={150}
@@ -46,7 +46,7 @@ const CustomLayout = (props: Props) => {
           />
         </Link>
 
-        <Link href={"/login"} className="flex flex-row items-center">
+        {/* <Link href={"/login"} className="flex flex-row items-center">
           <Button
             variant="text"
             sx={{
@@ -61,7 +61,7 @@ const CustomLayout = (props: Props) => {
           >
             Log in
           </Button>
-        </Link>
+        </Link> */}
       </Box>
       {children}
     </Box>
