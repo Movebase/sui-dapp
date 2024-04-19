@@ -26,8 +26,8 @@ const CategorySelect = ({
   };
 
   return (
-    <Box className="mb:col-span-2 md:col-span-1  mb:px-6 mb:pr-6 mb:pl-0">
-      <FormControl className="hidden mb:block w-full">
+    <Box className="mb:col-span-2 mb:px-6 mb:pl-0 mb:pr-6 md:col-span-1">
+      <FormControl className="hidden mb:block">
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -83,46 +83,48 @@ const CategorySelect = ({
           })}
         </Select>
       </FormControl>
-      <Box className=" mb:hidden flex gap-2 overflow-auto hidden-scrollbar">
-        <Chip
-          label={"All"}
-          className={`${
-            filter.category === "All" ? "wallet text-primary-contrastText" : ""
-          }`}
-          onClick={() =>
-            setFilter((prev: any) => ({ ...prev, category: "All" }))
-          }
-          sx={{
-            minWidth: "91px",
-            fontSize: "16px",
-            py: "20px",
-            borderRadius: "26px",
-          }}
-        />
-        {flattenCategories?.map((item: any, index: number) => {
-          return (
-            <Chip
-              label={item.name}
-              key={index}
-              sx={{
-                // minWidth: "91px",
-                // width: "100%",
-                fontSize: "16px",
-                py: "20px",
-                px: "10px",
-                borderRadius: "26px",
-              }}
-              onClick={() =>
-                setFilter((prev: any) => ({ ...prev, category: item.id }))
-              }
-              className={` ${
-                filter.category === item.id
-                  ? "wallet text-primary-contrastText"
-                  : ""
-              }`}
-            />
-          );
-        })}
+      <Box className="block mb:hidden">
+        <Box className="hidden-scrollbar flex gap-2 overflow-auto">
+          <Chip
+            label={"All"}
+            className={`${filter.category === "All" ? " wallet" : ""}`}
+            onClick={() =>
+              setFilter((prev: any) => ({ ...prev, category: "All" }))
+            }
+            sx={{
+              minWidth: "91px",
+              fontSize: "16px",
+              py: "20px",
+              borderRadius: "26px",
+              color:
+                filter.category === "All"
+                  ? "primary.contrastText"
+                  : "text.primary",
+            }}
+          />
+          {flattenCategories?.map((item: any, index: number) => {
+            return (
+              <Chip
+                label={item.name}
+                key={index}
+                sx={{
+                  fontSize: "16px",
+                  py: "20px",
+                  px: "10px",
+                  borderRadius: "26px",
+                  color:
+                    filter.category === item.id
+                      ? "primary.contrastText"
+                      : "text.primary",
+                }}
+                onClick={() =>
+                  setFilter((prev: any) => ({ ...prev, category: item.id }))
+                }
+                className={`${filter.category === item.id ? " wallet" : ""}`}
+              />
+            );
+          })}
+        </Box>
       </Box>
     </Box>
   );

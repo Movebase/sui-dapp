@@ -25,7 +25,7 @@ const AppCard = ({
   return (
     <Link href={href} className={twMerge` ${className}`}>
       <Card
-        className="hidden mb:flex gap-3 h-24 items-center p-0 mb:p-2 lg:p-4 lg:py-3 justify-center mb:justify-start min-w-[180px]"
+        className="hidden h-24 min-w-[180px] items-center justify-center gap-3 p-0 mb:flex mb:justify-start mb:p-2 lg:p-4 lg:py-3"
         sx={{
           ":hover": {
             boxShadow: "0px 4px 30px 0px rgba(4, 6, 15, 0.1)",
@@ -37,24 +37,24 @@ const AppCard = ({
           alt=""
           width={50}
           height={50}
-          className="rounded-xl flex h-[50px] w-[50px]  object-contain items-center justify-center"
+          className="flex h-[50px] w-[50px] items-center justify-center rounded-xl object-contain"
         />
         <Stack spacing={1} className="hidden mb:block">
           <Typography className="text-grey-900 ">{name}</Typography>
-          <Typography className="text-grey-300 overflow-hidden text-ellipsis h-6">
+          <Typography className="h-6 overflow-hidden text-ellipsis text-grey-300">
             {truncate(description, { length: 30 })}
           </Typography>
         </Stack>
       </Card>
-      <Box className="flex flex-col gap-2 items-center justify-center mb:hidden">
+      <Box className="flex flex-col  items-center justify-center gap-2 mb:hidden">
         <CustomImage
           src={icon}
           alt=""
           width={70}
           height={70}
-          className="rounded-xl flex h-[50px] w-[50px] object-contain items-center justify-center"
+          className="flex h-[50px] w-[50px] items-center justify-center rounded-xl object-contain"
         />
-        <Typography className="text-grey-900 text-[14px]">{name}</Typography>
+        <Typography className="text-[14px] text-grey-900 ">{name}</Typography>
       </Box>
     </Link>
   );
