@@ -25,7 +25,14 @@ const CategorySelect = ({
 
   return (
     <Box className="mb:col-span-2 mb:px-6 mb:pl-0 mb:pr-6 md:col-span-1">
-      <FormControl className="hidden mb:block">
+      <FormControl
+        sx={{
+          display: {
+            xs: "none",
+            mb: "block",
+          },
+        }}
+      >
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -43,10 +50,7 @@ const CategorySelect = ({
           sx={{
             borderRadius: "26px",
             height: "50px",
-            display: {
-              xs: "none",
-              mb: "block",
-            },
+
             // ":hover": {
             //   cursor: "pointer",
             // },
