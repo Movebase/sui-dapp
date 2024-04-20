@@ -1,11 +1,7 @@
 "use client";
-import React from "react";
-import AppHeader from "./AppHeader";
-import { Box, Typography } from "@mui/material";
-import MemberCard from "../../../components/common/MemberCard";
 import { useQuery } from "@tanstack/react-query";
 import { getAppDetail } from "../../../providers/api/dappStore";
-import { notFound } from "next/navigation";
+import AppHeader from "./AppHeader";
 export interface AppDetail {
   id: string;
   createdAt: string;
@@ -21,6 +17,12 @@ export interface AppDetail {
   publishedAt: any;
   verifiedAt: any;
   deleteAt: any;
+  category: Category;
+}
+
+export interface Category {
+  id: string;
+  name: string;
 }
 const AppDetail = ({ id }: { id: string }) => {
   const { data, isFetching } = useQuery<AppDetail>({

@@ -1,13 +1,11 @@
 import {
-  FormControl,
-  Select,
-  MenuItem,
-  SelectChangeEvent,
   Box,
   Chip,
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
 } from "@mui/material";
-import React from "react";
-import Carousel from "../../../components/common/Carousel";
 
 const CategorySelect = ({
   filter,
@@ -33,7 +31,7 @@ const CategorySelect = ({
           id="demo-simple-select"
           value={filter.category}
           onChange={handleChange}
-          className="wallet "
+          className="wallet"
           // IconComponent={(props: any) => {
           //   const { className } = props;
           //   if (className.includes("MuiSelect-iconOpen")) {
@@ -45,7 +43,10 @@ const CategorySelect = ({
           sx={{
             borderRadius: "26px",
             height: "50px",
-
+            display: {
+              xs: "none",
+              mb: "block",
+            },
             // ":hover": {
             //   cursor: "pointer",
             // },
@@ -76,8 +77,8 @@ const CategorySelect = ({
           <MenuItem value="All">All</MenuItem>
           {flattenCategories?.map((item: any, index: number) => {
             return (
-              <MenuItem key={index} value={item.id}>
-                {item.name}
+              <MenuItem key={index} value={item?.id}>
+                {item?.name}
               </MenuItem>
             );
           })}
@@ -105,7 +106,7 @@ const CategorySelect = ({
           {flattenCategories?.map((item: any, index: number) => {
             return (
               <Chip
-                label={item.name}
+                label={item?.name}
                 key={index}
                 sx={{
                   fontSize: "16px",
@@ -113,14 +114,14 @@ const CategorySelect = ({
                   px: "10px",
                   borderRadius: "26px",
                   color:
-                    filter.category === item.id
+                    filter?.category === item?.id
                       ? "primary.contrastText"
                       : "text.primary",
                 }}
                 onClick={() =>
-                  setFilter((prev: any) => ({ ...prev, category: item.id }))
+                  setFilter((prev: any) => ({ ...prev, category: item?.id }))
                 }
-                className={`${filter.category === item.id ? " wallet" : ""}`}
+                className={`${filter?.category === item?.id ? " wallet" : ""}`}
               />
             );
           })}

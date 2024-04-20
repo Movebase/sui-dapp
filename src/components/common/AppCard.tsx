@@ -54,7 +54,9 @@ const AppCard = ({
           height={70}
           className="flex h-[50px] w-[50px] items-center justify-center rounded-xl object-contain"
         />
-        <Typography className="text-[14px] text-grey-900 ">{name}</Typography>
+        <Typography className="text-[14px] text-grey-900 mb:text-base">
+          {name}
+        </Typography>
       </Box>
     </Link>
   );
