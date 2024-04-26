@@ -21,7 +21,7 @@ const CustomLayout = (props: Props) => {
       {...rest}
     >
       <Box
-        className="flex h-16 w-full flex-row items-center justify-between overflow-hidden bg-[#FBFCFD] mb:bg-background-paper px-6 py-3 text-center"
+        className="flex h-16 w-full flex-row items-center justify-between overflow-hidden bg-[#FBFCFD] px-6 py-3 text-center mb:bg-background-paper"
         sx={{
           boxShadow: {
             xs: "none",
@@ -29,16 +29,16 @@ const CustomLayout = (props: Props) => {
           },
         }}
       >
-        <Link href={"/"} className="relative flex gap-2">
+        <Link href={"/"} className="relative flex items-center gap-2">
           <Image
-            className="object-contain w-[35px] mb:w-[50px] "
+            className="w-[35px] object-contain mb:w-[50px] "
             src={logo.src}
             alt="logo"
             width={50}
             height={50}
           />
           <Image
-            className="object-contain w-[110px] mb:w-[150px]"
+            className="w-[110px] object-contain mb:w-[150px]"
             src={name.src}
             alt="name"
             width={150}

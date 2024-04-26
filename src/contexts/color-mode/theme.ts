@@ -32,13 +32,27 @@ const darkPalette: PaletteOptions = {
     dark: "#124F9F", // 700
     contrastText: "#fff",
   },
+  grey: {
+    50: "#EAECF0",
+    100: "#D6D9DF",
+    200: "#ADB4C0",
+    300: "#838FA0",
+    400: "#5A6981",
+    500: "#2C4364",
+    600: "#27364E",
+    700: "#1D283A",
+    800: "#141B27",
+    900: "#0A0D13",
+  },
   secondary: {
-    main: "#2A132E",
+    light: "#F0F1F2",
+    main: "#8A8D93",
+    dark: "#4D5056",
     contrastText: "#fff",
   },
   background: {
-    default: "#212121",
-    paper: "#242424",
+    default: "#f0f0f0",
+    paper: "#ffffff",
   },
   success: {
     light: "#B0EDCC",
@@ -66,9 +80,9 @@ const darkPalette: PaletteOptions = {
   },
   divider: "rgba(0,0,0,0)",
   text: {
-    primary: "#fff",
-    secondary: "rgba(255,255,255,0.7)",
-    disabled: "#d1d1d1",
+    primary: "#626262",
+    secondary: "#9f9f9f",
+    disabled: "#c1c1c1",
   },
 };
 const lightPalette: PaletteOptions = {
@@ -197,29 +211,29 @@ const LightTheme = createTheme({
 const DarkTheme = createTheme({
   ...commonThemeProperties,
   palette: darkPalette,
-  components: {
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundImage:
-            "linear-gradient(rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.025))",
-        },
-      },
-    },
-    MuiAppBar: {
-      defaultProps: {
-        color: "transparent",
-      },
-    },
-    MuiTypography: {
-      styleOverrides: {
-        h5: {
-          fontWeight: 800,
-          lineHeight: "2rem",
-        },
-      },
-    },
-  },
+  // components: {
+  //   MuiPaper: {
+  //     styleOverrides: {
+  //       root: {
+  //         backgroundImage:
+  //           "linear-gradient(rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.025))",
+  //       },
+  //     },
+  //   },
+  //   MuiAppBar: {
+  //     defaultProps: {
+  //       color: "transparent",
+  //     },
+  //   },
+  //   MuiTypography: {
+  //     styleOverrides: {
+  //       h5: {
+  //         fontWeight: 800,
+  //         lineHeight: "2rem",
+  //       },
+  //     },
+  //   },
+  // },
 });
 
 export { DarkTheme, LightTheme, lightPalette };

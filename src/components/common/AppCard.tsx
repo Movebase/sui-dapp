@@ -25,7 +25,7 @@ const AppCard = ({
   return (
     <Link href={href} className={twMerge` ${className}`}>
       <Card
-        className="hidden h-24 min-w-[180px] items-center justify-center gap-3 p-0 mb:flex mb:justify-start mb:p-2 lg:p-4 lg:py-3"
+        className="hidden h-24 min-w-[180px] items-center justify-center gap-3  p-0 mb:flex mb:justify-start mb:p-2 lg:p-4 lg:py-3"
         sx={{
           ":hover": {
             boxShadow: "0px 4px 30px 0px rgba(4, 6, 15, 0.1)",

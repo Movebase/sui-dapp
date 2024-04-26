@@ -36,7 +36,9 @@ const AppHeader = ({ data }: { data: AppDetail | undefined }) => {
           Open App
         </Link>
       </Stack>
-      <Typography className="text-justify">{data?.description}</Typography>
+      <Typography className="text-justify text-secondary-dark">
+        {data?.description}
+      </Typography>
     </Stack>
   );
 };
