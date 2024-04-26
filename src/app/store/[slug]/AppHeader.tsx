@@ -1,16 +1,7 @@
-import {
-  Box,
-  Button,
-  Stack,
-  Theme,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import Image from "next/image";
-import ankr from "../../asset/ankr.svg";
-import { AppDetail } from "./AppDetail";
-import CustomImage from "../../../components/common/Image";
+import { Box, Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import CustomImage from "../../../components/common/Image";
+import { AppDetail } from "./AppDetail";
 
 const AppHeader = ({ data }: { data: AppDetail | undefined }) => {
   return (

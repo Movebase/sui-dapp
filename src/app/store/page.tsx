@@ -85,7 +85,7 @@ const Store = () => {
       <div className="col-span-1 gap-2 overflow-y-auto mb:col-span-6 md:col-span-4">
         <div className="hidden mb:block">
           <InfiniteScroll
-            className="grid grid-cols-3 gap-7 p-6 pt-0 mb:grid-cols-6 mb:gap-6 md:grid-cols-3"
+            className="grid grid-cols-3 gap-7 p-6  mb:grid-cols-6 mb:gap-6 md:grid-cols-3"
             hasMore={hasNextPage ?? false}
             dataLength={flattenApps?.length ?? 0}
             next={fetchNextPage}
