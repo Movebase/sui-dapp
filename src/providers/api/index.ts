@@ -1,4 +1,5 @@
 import axios from "axios";
+import { StorageKey } from "../../enum";
 
 export const apiUrl = process.env.NEXT_PUBLIC_DAPP_API_URL;
 
@@ -11,7 +12,7 @@ API.interceptors.request.use(
   (config) => {
     // Modify the request configuration before sending it
     const token =
-      typeof window !== "undefined" && localStorage.getItem("token");
+      typeof window !== "undefined" && localStorage.getItem(StorageKey.TOKEN);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -19,7 +20,7 @@ API.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 // Add a response interceptor
@@ -36,5 +37,5 @@ API.interceptors.response.use(
     // Do something with response error
 
     return Promise.reject(error);
-  }
+  },
 );

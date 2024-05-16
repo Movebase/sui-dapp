@@ -6,6 +6,7 @@ import React, { Suspense } from "react";
 import "react-multi-carousel/lib/styles.css";
 import App from ".";
 import "../index.css";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Dapp store",
@@ -36,6 +37,17 @@ export default function RootLayout({
           </RefineKbarProvider>
         </Suspense>
       </body>
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-2VJRHXWD1N"
+      />
+      <Script id="google-analytics">
+        {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-2VJRHXWD1N');`}
+      </Script>
     </html>
   );
 }

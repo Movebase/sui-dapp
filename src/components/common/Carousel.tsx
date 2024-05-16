@@ -58,14 +58,14 @@ const Carousel = (props: MyCarouselProps) => {
       customDot={<CustomDot />}
       customLeftArrow={
         <NavArrowLeft
-          className=" text-error-main bg-error-main"
+          className=" bg-error-main text-error-main"
           width={20}
           height={20}
         />
       }
       customRightArrow={
         <NavArrowRight
-          className=" text-error-main bg-error-main"
+          className=" bg-error-main text-error-main"
           width={20}
           height={20}
         />
@@ -87,7 +87,7 @@ const CustomDot = (props: any) => {
     <button
       className={`${
         active ? "bg-grey-300" : "bg-grey-100"
-      } w-[10px] h-[10px] mx-[2px] rounded-full `}
+      } mx-[2px] h-[10px] w-[10px] rounded-full `}
       onClick={() => onClick()}
     ></button>
   );

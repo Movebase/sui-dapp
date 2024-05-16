@@ -13,13 +13,19 @@ import { useForm } from "@refinedev/react-hook-form";
 import { forwardRef, useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { apiUrl } from "../../../providers/api";
-import { uploadDappIcon } from "../../../providers/api/dappStore";
+import {
+  uploadDappIcon,
+  uploadDappScreenshots,
+} from "../../../providers/api/dappStore";
+import { XmarkCircle } from "iconoir-react";
 interface FormProps {
   Component: any;
   imageNotRequired?: boolean;
 }
 const Form = ({ Component, imageNotRequired = false }: FormProps) => {
   const [image, setImage] = useState<any>();
+  const [screenshots, setScreenshots] = useState<any>();
+
   const {
     saveButtonProps,
     refineCore: { queryResult, onFinish, formLoading, redirect },
@@ -36,27 +42,39 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
       },
       redirect: false,
       onMutationSuccess: async (data: any, variables, context, isAutoSave) => {
+        const formData = new FormData();
         if (image) {
-          const formData = new FormData();
           formData.append("image", image);
           await uploadDappIcon(data?.data.id, formData).then((res) => {
             redirect("list");
           });
         }
         redirect("list");
+        if (screenshots.length > 0) {
+          screenshots.map((item: any, index: number) => {
+            formData.append(`screenshot_${index + 1}`, item);
+          });
+          await uploadDappScreenshots(data?.data.id, formData).then((res) => {
+            redirect("list");
+          });
+        }
       },
     },
   });
+
   const iconSource = queryResult?.data?.data?.icon;
+  // const screenshotsSource = queryResult?.data?.data?.screenshots;
   const defaultImage = `${apiUrl}/storage/dapps${iconSource}`;
   const previewImage = image && URL.createObjectURL(image);
+  // const previewScreenshot =
+  //   screenshots?.length > 0 &&
+  //   screenshots?.map((item: any) => URL.createObjectURL(item));
 
   const { autocompleteProps: categoryAutocompleteProps } = useAutocomplete({
     resource: "categories",
   });
 
   const handleSubmitForm = async (values: any) => {
-    delete values.appIcon;
     onFinish(values);
   };
   const handleChange = (e: any) => {
@@ -192,7 +210,7 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
                   name="url"
                   onChange={(e) => {
                     handleChange(e);
-                    field.onChange(e);
+                    // field.onChange(e);
                   }}
                 />
               </Button>
@@ -200,7 +218,7 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
           }}
         />
         {errors?.appIcon && (
-          <Typography className="text-error-main text-[12px] ml-[14px] py-1">
+          <Typography className="ml-[14px] py-1 text-[12px] text-error-main">
             {(errors as any)?.appIcon?.message}
           </Typography>
         )}
@@ -222,6 +240,74 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
             className="pt-4"
           />
         )}
+        {/* <Controller
+          control={control}
+          name="screenshots"
+          rules={imageNotRequired ? {} : { required: "This field is required" }}
+          render={({ field }) => {
+            return (
+              <Button
+                role={undefined}
+                variant="contained"
+                className="w-1/4"
+                component={LabelRef}
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+              >
+                Upload screenshot
+                <VisuallyHiddenInput
+                  type="file"
+                  accept=".png, .jpg, .jpeg"
+                  name="url"
+                  multiple
+                  max={5}
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files || []);
+                    setScreenshots(files);
+                  }}
+                />
+              </Button>
+            );
+          }}
+        />
+        {errors?.screenshots && (
+          <Typography className="ml-[14px] py-1 text-[12px] text-error-main">
+            {(errors as any)?.screenshots?.message}
+          </Typography>
+        )}
+        <div className="flex gap-2">
+          {screenshots &&
+            previewScreenshot.map((screenshot: any, index: number) => {
+              return (
+                <div key={screenshot} className="relative">
+                  <img
+                    src={screenshot}
+                    alt="app-logo"
+                    width={100}
+                    height={100}
+                    className="object-contain pt-4 "
+                  />
+                  <XmarkCircle
+                    className="absolute right-1 top-2 h-5 w-5 rounded-full bg-primary-contrastText  hover:cursor-pointer hover:text-error-main"
+                    onClick={() => {
+                      const newScreenshots = [...screenshots];
+                      newScreenshots.splice(index, 1);
+                      setScreenshots(newScreenshots);
+                    }}
+                  />
+                </div>
+              );
+            })}
+        </div> */}
+        {/* {!image && iconSource && (
+          <img
+            src={defaultImage}
+            alt="app-logo"
+            width={80}
+            height={80}
+            className="pt-4"
+          />
+        )} */}
       </Box>
     </Component>
   );

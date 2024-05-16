@@ -13,13 +13,9 @@ export default function CategoryEdit() {
 
   return (
     <Edit saveButtonProps={saveButtonProps}>
-      <Box
-        component="form"
-        sx={{ display: "flex", flexDirection: "column" }}
-        autoComplete="off"
-      >
+      <Box component="form" sx={{ display: "flex", flexDirection: "column" }}>
         <TextField
-          {...register("title", {
+          {...register("name", {
             required: "This field is required",
           })}
           error={!!(errors as any)?.title}
@@ -29,7 +25,7 @@ export default function CategoryEdit() {
           InputLabelProps={{ shrink: true }}
           type="text"
           label={"Title"}
-          name="title"
+          name="name"
         />
       </Box>
     </Edit>

@@ -2,7 +2,6 @@
 
 import { useForm } from "@refinedev/react-hook-form";
 import { FormProvider } from "react-hook-form";
-
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -15,10 +14,8 @@ import MuiLink from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-
 import type { BoxProps } from "@mui/material/Box";
 import type { CardContentProps } from "@mui/material/CardContent";
-
 import {
   BaseRecord,
   HttpError,
@@ -36,6 +33,10 @@ import { FormPropsType } from "@refinedev/mui/dist/components/pages/auth";
 import { CSSProperties, useState } from "react";
 import { IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Ed25519Keypair } from "@mysten/sui.js/keypairs/ed25519";
+import { generateNonce, generateRandomness } from "@mysten/zklogin";
+import GoogleLogo from "../../app/asset/google.svg";
+import { SuiClient, getFullnodeUrl } from "@mysten/sui.js/client";
 
 export const layoutStyles: CSSProperties = {};
 
@@ -219,7 +220,7 @@ export const LoginPage: React.FC<LoginProps> = ({
                       aria-label={translate(
                         showPassword
                           ? "ra.input.password.toggle_visible"
-                          : "ra.input.password.toggle_hidden"
+                          : "ra.input.password.toggle_hidden",
                       )}
                       onClick={handleClick}
                       size="large"
@@ -260,7 +261,7 @@ export const LoginPage: React.FC<LoginProps> = ({
                   }
                   label={translate(
                     "pages.login.buttons.rememberMe",
-                    "Remember me"
+                    "Remember me",
                   )}
                 />
               )}
@@ -275,7 +276,7 @@ export const LoginPage: React.FC<LoginProps> = ({
                 >
                   {translate(
                     "pages.login.buttons.forgotPassword",
-                    "Forgot password?"
+                    "Forgot password?",
                   )}
                 </MuiLink>
               )}
@@ -289,40 +290,17 @@ export const LoginPage: React.FC<LoginProps> = ({
             >
               {translate("pages.login.signin", "Sign in")}
             </Button>
-          </Box>
-        )}
-        {registerLink ?? (
-          <Box
-            sx={{
-              mt: "24px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              textAlign="center"
-              variant="body2"
-              component="span"
-              fontSize="12px"
+            {/* <Divider>ZkLogin</Divider> */}
+            <ZkProviderButtons />
+            {/* <Button
+              type="submit"
+              fullWidth
+              variant="outlined"
+              //   disabled={isLoading}
+              sx={{ mt: "24px" }}
             >
-              {translate(
-                "pages.login.buttons.noAccount",
-                "Don’t have an account?"
-              )}
-            </Typography>
-            <MuiLink
-              ml="4px"
-              fontSize="12px"
-              variant="body2"
-              color="primary"
-              component={ActiveLink}
-              underline="none"
-              to="/register"
-              fontWeight="bold"
-            >
-              {translate("pages.login.signup", "Sign up")}
-            </MuiLink>
+              {translate("pages.login.signin", "Sign in with Google")}
+            </Button> */}
           </Box>
         )}
       </CardContent>
@@ -372,5 +350,55 @@ export const LoginPage: React.FC<LoginProps> = ({
         </Container>
       </Box>
     </FormProvider>
+  );
+};
+type Network = "testnet" | "mainnet";
+
+const SUI_NETWORK: Network =
+  (process.env.NEXT_PUBLIC_SUI_NETWORK as Network) || "testnet";
+
+const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
+const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI || "";
+export const suiClient = new SuiClient({ url: getFullnodeUrl(SUI_NETWORK) });
+export const ZkProviderButtons = () => {
+  return (
+    <>
+      <Divider>ZkLogin</Divider>
+      <Button
+        sx={{ mt: "24px", width: "100%" }}
+        variant="text"
+        onClick={async () => {
+          const ephemeralKeyPair = Ed25519Keypair.generate();
+          const randomness = generateRandomness();
+          const { epoch } = await suiClient.getLatestSuiSystemState();
+          const maxEpoch = Number(epoch) + 10;
+
+          const nonce = generateNonce(
+            ephemeralKeyPair.getPublicKey(),
+            maxEpoch,
+            randomness,
+          );
+
+          const params = new URLSearchParams({
+            client_id: CLIENT_ID,
+            redirect_uri: REDIRECT_URI,
+            response_type: "id_token",
+            scope: ["openid", "email"].join(" "),
+            nonce,
+          });
+
+          const loginURL = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
+          window.location.replace(loginURL);
+        }}
+      >
+        <img
+          src={GoogleLogo.src}
+          width="16px"
+          style={{ marginRight: "8px" }}
+          alt="Google"
+        />{" "}
+        Sign In With Google
+      </Button>
+    </>
   );
 };

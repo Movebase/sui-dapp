@@ -1,18 +1,18 @@
 "use client";
 
 import { authProvider } from "@providers/auth-provider";
-import { Refine, useGo, useIsAuthenticated } from "@refinedev/core";
+import { Refine } from "@refinedev/core";
 import { RefineKbar } from "@refinedev/kbar";
 import routerProvider from "@refinedev/nextjs-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React from "react";
 import "react-multi-carousel/lib/styles.css";
 import "../index.css";
-import { dapps } from "./dapps";
-import { users } from "./users";
 import { dataProvider } from "../providers/data-provider";
 import { useNotificationProvider } from "../providers/noti-provider";
 import { categories } from "./categories";
+import { dapps } from "./dapps";
+import { users } from "./users";
 
 export const queryClient = new QueryClient({
   defaultOptions: {

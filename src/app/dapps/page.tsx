@@ -46,7 +46,7 @@ const DApps = () => {
               alt="logo"
               width={70}
               height={70}
-              className="rounded-xl p-1 flex h-[70px] object-contain items-center justify-center"
+              className="flex h-[70px] items-center justify-center rounded-xl object-contain p-1"
             />
           );
         },
@@ -69,7 +69,7 @@ const DApps = () => {
         minWidth: 80,
       },
     ],
-    []
+    [],
   );
   if (!data?.authenticated) {
     return redirect(data?.redirectTo ?? "/login");
@@ -83,8 +83,8 @@ const DApps = () => {
       <DataGrid
         {...dataGridProps}
         columns={columns}
-        // autoHeight
-        getRowHeight={() => "auto"}
+        // autoHeight={dataGridProps.rowCount === 0 ? true : false}
+        getRowHeight={() => (dataGridProps.rowCount === 0 ? null : "auto")}
       />
     </List>
   );

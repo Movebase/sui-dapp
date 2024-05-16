@@ -41,6 +41,17 @@ export const uploadDappIcon = async (id: string, params: any): Promise<any> => {
   }).then((res) => res.data);
   return res;
 };
+export const uploadDappScreenshots = async (
+  id: string,
+  params: any,
+): Promise<any> => {
+  const res = await API.post(`dapps/${id}/upload/screenshot`, params, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }).then((res) => res.data);
+  return res;
+};
 
 export const getAppDetail = async (id: string): Promise<any> => {
   const res = await API.get(`dapps/${id}`).then((res) => res.data);

@@ -2,6 +2,7 @@
 
 import { AuthBindings } from "@refinedev/core";
 import API from "../api";
+import { StorageKey } from "../../enum";
 export const authProvider: AuthBindings = {
   login: async ({ email, username, password, remember }) => {
     // Suppose we actually send a request to the back end here.
@@ -13,8 +14,8 @@ export const authProvider: AuthBindings = {
     const { token, refreshToken } = data;
 
     if (token) {
-      localStorage.setItem("token", token);
-      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem(StorageKey.TOKEN, token);
+      localStorage.setItem(StorageKey.REFRESH_TOKEN, refreshToken);
       return {
         success: true,
         redirectTo: "/dapps",
@@ -84,7 +85,7 @@ export const authProvider: AuthBindings = {
     };
   },
   check: async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem(StorageKey.TOKEN);
     if (token) {
       return {
         authenticated: true,
@@ -98,7 +99,7 @@ export const authProvider: AuthBindings = {
     };
   },
   getPermissions: async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem(StorageKey.TOKEN);
     if (token) {
       const parsedUser = JSON.parse(token);
       return parsedUser.roles;
@@ -106,7 +107,7 @@ export const authProvider: AuthBindings = {
     return null;
   },
   getIdentity: async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem(StorageKey.TOKEN);
     if (token) {
       const parsedUser = JSON.parse(token);
       return parsedUser;
