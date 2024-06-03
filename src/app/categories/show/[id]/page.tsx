@@ -7,9 +7,10 @@ import {
   Show,
   TextFieldComponent as TextField,
 } from "@refinedev/mui";
+import { ICategory } from "../../type";
 
 export default function CategoryShow() {
-  const { queryResult } = useShow({});
+  const { queryResult } = useShow<ICategory>({});
   const { data, isLoading } = queryResult;
 
   const record = data?.data;
@@ -20,11 +21,11 @@ export default function CategoryShow() {
         <Typography variant="body1" fontWeight="bold">
           {"ID"}
         </Typography>
-        <NumberField value={record?.id ?? ""} />
+        <TextField value={record?.id ?? ""} />
         <Typography variant="body1" fontWeight="bold">
-          {"Title"}
+          {"Name"}
         </Typography>
-        <TextField value={record?.title} />
+        <TextField value={record?.name} />
       </Stack>
     </Show>
   );

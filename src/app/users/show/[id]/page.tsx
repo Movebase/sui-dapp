@@ -9,21 +9,14 @@ import {
   Show,
   TextFieldComponent as TextField,
 } from "@refinedev/mui";
+import { User } from "../../type";
 
 export default function BlogPostShow() {
-  const { queryResult } = useShow({});
+  const { queryResult } = useShow<User>({});
 
   const { data, isLoading } = queryResult;
 
   const record = data?.data;
-
-  const { data: categoryData, isLoading: categoryIsLoading } = useOne({
-    resource: "categories",
-    id: record?.category?.id || "",
-    queryOptions: {
-      enabled: !!record,
-    },
-  });
 
   return (
     <Show isLoading={isLoading}>
@@ -31,27 +24,22 @@ export default function BlogPostShow() {
         <Typography variant="body1" fontWeight="bold">
           {"ID"}
         </Typography>
-        <NumberField value={record?.id ?? ""} />
+        <TextField value={record?.id ?? ""} />
 
         <Typography variant="body1" fontWeight="bold">
-          {"Title"}
+          {"Name"}
         </Typography>
-        <TextField value={record?.title} />
+        <TextField value={record?.name} />
 
         <Typography variant="body1" fontWeight="bold">
-          {"Content"}
+          {"Email"}
         </Typography>
-        <MarkdownField value={record?.content} />
+        <TextField value={record?.email} />
 
         <Typography variant="body1" fontWeight="bold">
-          {"Category"}
+          {"Role"}
         </Typography>
-        {categoryIsLoading ? <>Loading...</> : <>{categoryData?.data?.title}</>}
-
-        <Typography variant="body1" fontWeight="bold">
-          {"Status"}
-        </Typography>
-        <TextField value={record?.status} />
+        <TextField value={record?.role} />
 
         <Typography variant="body1" fontWeight="bold">
           {"CreatedAt"}
