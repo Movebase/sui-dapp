@@ -3,3 +3,8 @@ export enum StorageKey {
   REFRESH_TOKEN = "refreshToken",
   USER_SALT = "userSalt",
 }
+
+export enum AppStatus {
+  PENDING = "PENDING",
+  PUBLISHED = "PUBLISHED",
+}

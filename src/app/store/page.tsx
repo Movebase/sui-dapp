@@ -35,6 +35,7 @@ const Store = () => {
     },
     refetchOnWindowFocus: false,
   });
+
   const {
     data: categories,
     refetch: refetchCategories,
@@ -59,7 +60,7 @@ const Store = () => {
     },
     refetchOnWindowFocus: false,
   });
-  const flattenApps = data?.pages?.flatMap?.((item) => item?.data);
+  const flattenApps = data?.pages?.flatMap?.((item) => item);
   const flattenCategories = categories?.pages?.flatMap?.((item) => item?.data);
 
   useEffect(() => {

@@ -1,12 +1,12 @@
+import { ColorModeContextProvider } from "@contexts/color-mode";
 import { RefineKbarProvider } from "@refinedev/kbar";
 import { RefineSnackbarProvider } from "@refinedev/mui";
 import { Metadata } from "next";
-import { ColorModeContextProvider } from "@contexts/color-mode";
+import Script from "next/script";
 import React, { Suspense } from "react";
 import "react-multi-carousel/lib/styles.css";
 import App from ".";
 import "../index.css";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Dapp store",
@@ -21,7 +21,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const theme = typeof window !== "undefined" && localStorage.getItem("theme");
   const defaultMode = "light";
 
   return (

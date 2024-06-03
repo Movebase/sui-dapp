@@ -1,4 +1,5 @@
 import API from "..";
+import { AppStatus } from "../../../enum";
 
 export const getDapps = async (params: any): Promise<any> => {
   const result: any = {
@@ -25,6 +26,7 @@ export const getDapps = async (params: any): Promise<any> => {
   const res = await API.get(`dapps?${pathParams}`)
     .then((res) => res.data)
     .catch((err) => console.warn(err));
+
   return res;
 };
 export const getCategories = async (params: any): Promise<any> => {
@@ -55,5 +57,12 @@ export const uploadDappScreenshots = async (
 
 export const getAppDetail = async (id: string): Promise<any> => {
   const res = await API.get(`dapps/${id}`).then((res) => res.data);
+  return res;
+};
+
+export const changeAppStatus = async (data: any): Promise<any> => {
+  const res = await API.post(`dapps/status`, {
+    ...data,
+  }).then((res) => res.data);
   return res;
 };

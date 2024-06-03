@@ -167,12 +167,60 @@ const commonThemeProperties: ThemeOptions = {
   },
   breakpoints,
 };
-
+const components = {
+  MuiSwitch: {
+    styleOverrides: {
+      root: {
+        width: 38,
+        height: 22,
+        padding: 0,
+        marginLeft: 10,
+        "& .MuiSwitch-switchBase": {
+          padding: 0,
+          margin: 2,
+          transitionDuration: "300ms",
+          "&.Mui-checked": {
+            transform: "translateX(16px)",
+            color: "#fff",
+            "& + .MuiSwitch-track": {
+              opacity: 1,
+              border: 0,
+            },
+            "&.Mui-disabled + .MuiSwitch-track": {
+              opacity: 0.5,
+            },
+          },
+          "&.Mui-focusVisible .MuiSwitch-thumb": {
+            color: "#fff",
+            border: "6px solid #fff",
+          },
+          "&.Mui-disabled .MuiSwitch-thumb": {
+            color: "#E9EBF8",
+          },
+          "&.Mui-disabled + .MuiSwitch-track": {
+            opacity: 0.7,
+          },
+        },
+        "& .MuiSwitch-thumb": {
+          boxSizing: "border-box",
+          width: 18,
+          height: 18,
+        },
+        "& .MuiSwitch-track": {
+          borderRadius: 24 / 2,
+          backgroundColor: "rgba(0,0,0,.25)",
+          opacity: 1,
+        },
+      },
+    },
+  },
+};
 const LightTheme = createTheme({
   ...commonThemeProperties,
   palette: lightPalette,
 
   components: {
+    ...components,
     MuiAppBar: {
       styleOverrides: {
         colorDefault: {
@@ -210,6 +258,7 @@ const LightTheme = createTheme({
 
 const DarkTheme = createTheme({
   ...commonThemeProperties,
+  ...components,
   palette: darkPalette,
   // components: {
   //   MuiPaper: {

@@ -4,6 +4,7 @@ import { useGo, useIsAuthenticated } from "@refinedev/core";
 
 export default function Login() {
   const { data, isFetching } = useIsAuthenticated();
+
   const go = useGo();
   // if (isFetching) {
   //   return;

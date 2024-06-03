@@ -31,7 +31,11 @@ API.interceptors.response.use(
     return response;
   },
   function (error) {
-    // console.log(error);
+    const status = error?.response?.status;
+    // const originalRequest = error.config;
+    if (status === 401) {
+      window.location.href = "/login";
+    }
 
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error

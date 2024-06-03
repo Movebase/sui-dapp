@@ -50,7 +50,7 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
           });
         }
         redirect("list");
-        if (screenshots.length > 0) {
+        if (screenshots?.length > 0) {
           screenshots.map((item: any, index: number) => {
             formData.append(`screenshot_${index + 1}`, item);
           });
@@ -75,6 +75,7 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
   });
 
   const handleSubmitForm = async (values: any) => {
+    delete values.appIcon;
     onFinish(values);
   };
   const handleChange = (e: any) => {
@@ -210,7 +211,7 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
                   name="url"
                   onChange={(e) => {
                     handleChange(e);
-                    // field.onChange(e);
+                    field.onChange(e);
                   }}
                 />
               </Button>

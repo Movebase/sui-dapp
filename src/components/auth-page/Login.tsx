@@ -290,17 +290,7 @@ export const LoginPage: React.FC<LoginProps> = ({
             >
               {translate("pages.login.signin", "Sign in")}
             </Button>
-            {/* <Divider>ZkLogin</Divider> */}
             <ZkProviderButtons />
-            {/* <Button
-              type="submit"
-              fullWidth
-              variant="outlined"
-              //   disabled={isLoading}
-              sx={{ mt: "24px" }}
-            >
-              {translate("pages.login.signin", "Sign in with Google")}
-            </Button> */}
           </Box>
         )}
       </CardContent>
