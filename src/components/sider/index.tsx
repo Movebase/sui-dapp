@@ -33,12 +33,14 @@ import {
   useActiveAuthProvider,
   pickNotDeprecated,
   useWarnAboutChange,
+  usePermissions,
 } from "@refinedev/core";
 import {
   RefineThemedLayoutV2SiderProps,
   useThemedLayoutContext,
   ThemedTitleV2 as DefaultTitle,
 } from "@refinedev/mui";
+import { UserRole } from "../../enum";
 
 export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
   Title: TitleFromProps,
@@ -68,7 +70,12 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
   const translate = useTranslate();
 
   const { menuItems, selectedKey, defaultOpenKeys } = useMenu({ meta });
+  const data = usePermissions();
 
+  const menuItemsByRole =
+    data?.data === UserRole.ADMIN
+      ? menuItems
+      : menuItems.filter((item) => item.name === "dapps");
   const isExistAuthentication = useIsExistAuthentication();
   const TitleFromContext = useTitle();
   const authProvider = useActiveAuthProvider();
@@ -86,7 +93,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
 
       const uniqueKeys = new Set([...previousOpenKeys, ...defaultOpenKeys]);
       const uniqueKeysRecord = Object.fromEntries(
-        Array.from(uniqueKeys.values()).map((key) => [key, true])
+        Array.from(uniqueKeys.values()).map((key) => [key, true]),
       );
       return uniqueKeysRecord;
     });
@@ -301,8 +308,8 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
       const confirm = window.confirm(
         t(
           "warnWhenUnsavedChanges",
-          "Are you sure you want to leave? You have unsaved changes."
-        )
+          "Are you sure you want to leave? You have unsaved changes.",
+        ),
       );
 
       if (confirm) {
@@ -350,7 +357,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
     </Tooltip>
   );
 
-  const items = renderTreeView(menuItems, selectedKey);
+  const items = renderTreeView(menuItemsByRole, selectedKey);
 
   const renderSider = () => {
     if (render) {

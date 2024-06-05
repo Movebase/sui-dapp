@@ -1,5 +1,6 @@
 "use client";
 
+import { Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import {
   DeleteButton,
@@ -9,13 +10,17 @@ import {
   useDataGrid,
 } from "@refinedev/mui";
 import React from "react";
+import { User } from "./type";
+import dayjs from "../../helper/dayjs";
+import { CanAccess } from "@refinedev/core";
+import { ErrorComponent } from "../../components/common/Error";
 
 export default function ListUsers() {
-  const { dataGridProps } = useDataGrid({
+  const { dataGridProps } = useDataGrid<User>({
     syncWithLocation: false,
   });
 
-  const columns = React.useMemo<GridColDef[]>(
+  const columns = React.useMemo<GridColDef<User>[]>(
     () => [
       {
         field: "name",
@@ -40,11 +45,25 @@ export default function ListUsers() {
         flex: 1,
         headerName: "Created at",
         minWidth: 200,
+        renderCell: ({ row }) => {
+          return (
+            <Typography>
+              {dayjs(row.createdAt).format("DD/MM/YYYY hh:mm:ss")}
+            </Typography>
+          );
+        },
       },
       {
         field: "updatedAt",
         flex: 1,
         headerName: "Updated at",
+        renderCell: ({ row }) => {
+          return (
+            <Typography>
+              {dayjs(row.updatedAt).format("DD/MM/YYYY hh:mm:ss")}
+            </Typography>
+          );
+        },
         minWidth: 200,
       },
       {
@@ -69,8 +88,11 @@ export default function ListUsers() {
   );
 
   return (
-    <List>
-      <DataGrid {...dataGridProps} columns={columns} autoHeight />
-    </List>
+    //Access by role
+    <CanAccess fallback={<ErrorComponent />}>
+      <List>
+        <DataGrid {...dataGridProps} columns={columns} autoHeight />
+      </List>
+    </CanAccess>
   );
 }

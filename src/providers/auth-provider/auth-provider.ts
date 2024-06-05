@@ -1,10 +1,12 @@
 "use client";
 
 import { AuthBindings } from "@refinedev/core";
-import API from "../api";
+import { jwtDecode } from "jwt-decode";
+import { User } from "../../app/users/type";
 import { StorageKey } from "../../enum";
+import API from "../api";
 export const authProvider: AuthBindings = {
-  login: async ({ email, username, password, remember }) => {
+  login: async ({ email, username, password, remember, redirectPath }) => {
     // Suppose we actually send a request to the back end here.
     const data = await API.post("auth/login", {
       email: email,
@@ -12,13 +14,16 @@ export const authProvider: AuthBindings = {
     }).then((res) => res.data);
 
     const { token, refreshToken } = data;
-
     if (token) {
+      const user: User = await jwtDecode(token);
+
       localStorage.setItem(StorageKey.TOKEN, token);
       localStorage.setItem(StorageKey.REFRESH_TOKEN, refreshToken);
+      localStorage.setItem("role", user.role);
+
       return {
         success: true,
-        redirectTo: "/dapps",
+        redirectTo: redirectPath,
       };
     }
     return {
@@ -101,16 +106,16 @@ export const authProvider: AuthBindings = {
   getPermissions: async () => {
     const token = localStorage.getItem(StorageKey.TOKEN);
     if (token) {
-      const parsedUser = JSON.parse(token);
-      return parsedUser.roles;
+      const user: User = await jwtDecode(token);
+      return user.role;
     }
     return null;
   },
   getIdentity: async () => {
     const token = localStorage.getItem(StorageKey.TOKEN);
     if (token) {
-      const parsedUser = JSON.parse(token);
-      return parsedUser;
+      const user: User = await jwtDecode(token);
+      return user.role;
     }
     return null;
   },

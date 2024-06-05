@@ -1,5 +1,4 @@
 import { ResourceProps } from "@refinedev/core";
-
 export const users: ResourceProps = {
   name: "users",
   list: "/users",

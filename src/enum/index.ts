@@ -8,3 +8,8 @@ export enum AppStatus {
   PENDING = "PENDING",
   PUBLISHED = "PUBLISHED",
 }
+
+export enum UserRole {
+  ADMIN = "ADMIN",
+  DEVELOPER = "DEVELOPER",
+}

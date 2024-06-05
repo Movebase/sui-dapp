@@ -49,7 +49,6 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
             redirect("list");
           });
         }
-        redirect("list");
         if (screenshots?.length > 0) {
           screenshots.map((item: any, index: number) => {
             formData.append(`screenshot_${index + 1}`, item);
@@ -58,17 +57,21 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
             redirect("list");
           });
         }
+        redirect("list");
       },
     },
   });
 
   const iconSource = queryResult?.data?.data?.icon;
-  // const screenshotsSource = queryResult?.data?.data?.screenshots;
+  const screenshotsSource = queryResult?.data?.data?.screenshots;
   const defaultImage = `${apiUrl}/storage/dapps${iconSource}`;
+  const defaultScreenshots = screenshotsSource?.map(
+    (item: string) => `${apiUrl}/storage/dapps${item}`,
+  );
   const previewImage = image && URL.createObjectURL(image);
-  // const previewScreenshot =
-  //   screenshots?.length > 0 &&
-  //   screenshots?.map((item: any) => URL.createObjectURL(item));
+  const previewScreenshot =
+    screenshots?.length > 0 &&
+    screenshots?.map((item: any) => URL.createObjectURL(item));
 
   const { autocompleteProps: categoryAutocompleteProps } = useAutocomplete({
     resource: "categories",
@@ -199,7 +202,7 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
               <Button
                 role={undefined}
                 variant="contained"
-                className="w-1/4"
+                className="mb-4 w-1/4"
                 component={LabelRef}
                 tabIndex={-1}
                 startIcon={<CloudUploadIcon />}
@@ -229,7 +232,7 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
             alt="app-logo"
             width={80}
             height={80}
-            className="pt-4"
+            className="pb-4"
           />
         )}
         {!image && iconSource && (
@@ -238,13 +241,13 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
             alt="app-logo"
             width={80}
             height={80}
-            className="pt-4"
+            className="pb-4"
           />
         )}
-        {/* <Controller
+        <Controller
           control={control}
           name="screenshots"
-          rules={imageNotRequired ? {} : { required: "This field is required" }}
+          // rules={imageNotRequired ? {} : { required: "This field is required" }}
           render={({ field }) => {
             return (
               <Button
@@ -286,7 +289,7 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
                     alt="app-logo"
                     width={100}
                     height={100}
-                    className="object-contain pt-4 "
+                    className="object-contain py-4 "
                   />
                   <XmarkCircle
                     className="absolute right-1 top-2 h-5 w-5 rounded-full bg-primary-contrastText  hover:cursor-pointer hover:text-error-main"
@@ -299,16 +302,21 @@ const Form = ({ Component, imageNotRequired = false }: FormProps) => {
                 </div>
               );
             })}
-        </div> */}
-        {/* {!image && iconSource && (
-          <img
-            src={defaultImage}
-            alt="app-logo"
-            width={80}
-            height={80}
-            className="pt-4"
-          />
-        )} */}
+        </div>
+        {!screenshots &&
+          screenshotsSource &&
+          defaultScreenshots.map((item: string) => {
+            return (
+              <img
+                src={item}
+                alt="app-logo"
+                width={200}
+                height={200}
+                className="py-4"
+                key={item}
+              />
+            );
+          })}
       </Box>
     </Component>
   );

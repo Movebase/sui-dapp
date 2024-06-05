@@ -82,7 +82,11 @@ const DApps = () => {
             <>
               <EditButton hideText recordItemId={row.id} />
               {/* <ShowButton hideText recordItemId={row.id} /> */}
-              <DeleteButton hideText recordItemId={row.id} />
+              <DeleteButton
+                hideText
+                recordItemId={row.id}
+                confirmTitle={`Do you want to delete ${row.name}?`}
+              />
             </>
           );
         },

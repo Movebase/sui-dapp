@@ -37,6 +37,7 @@ import { Ed25519Keypair } from "@mysten/sui.js/keypairs/ed25519";
 import { generateNonce, generateRandomness } from "@mysten/zklogin";
 import GoogleLogo from "../../app/asset/google.svg";
 import { SuiClient, getFullnodeUrl } from "@mysten/sui.js/client";
+import { useSearchParams } from "next/navigation";
 
 export const layoutStyles: CSSProperties = {};
 
@@ -83,6 +84,9 @@ export const LoginPage: React.FC<LoginProps> = ({
   const { mutate: login, isLoading } = useLogin<LoginFormTypes>({
     v3LegacyAuthProviderCompatible: Boolean(authProvider?.isLegacy),
   });
+  const params = useSearchParams();
+  const redirectPath = params?.get("to") ?? "";
+
   const translate = useTranslate();
   const routerType = useRouterType();
   const Link = useLink();
@@ -175,7 +179,7 @@ export const LoginPage: React.FC<LoginProps> = ({
                 return onSubmit(data);
               }
               // muatateLogin(data);
-              login(data);
+              login({ ...data, redirectPath: redirectPath });
             })}
           >
             <TextField

@@ -1,7 +1,7 @@
 "use client";
 
 import { authProvider } from "@providers/auth-provider";
-import { Refine } from "@refinedev/core";
+import { CanAccess, Refine, usePermissions } from "@refinedev/core";
 import { RefineKbar } from "@refinedev/kbar";
 import routerProvider from "@refinedev/nextjs-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -13,6 +13,10 @@ import { useNotificationProvider } from "../providers/noti-provider";
 import { categories } from "./categories";
 import { dapps } from "./dapps";
 import { users } from "./users";
+import accessControlProvider from "../providers/access-control-provider/accessControlProvider";
+import { ErrorComponent } from "../components/common/Error";
+import { ThemedLayout } from "../components/themed-layout";
+import { UserRole } from "../enum";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,8 +37,15 @@ const App = ({
         routerProvider={routerProvider}
         dataProvider={dataProvider}
         notificationProvider={useNotificationProvider}
+        accessControlProvider={accessControlProvider}
         authProvider={authProvider}
-        resources={[{ ...dapps }, { ...categories }, { ...users }]}
+        resources={[
+          {
+            ...dapps,
+          },
+          { ...categories },
+          { ...users },
+        ]}
         options={{
           syncWithLocation: true,
           warnWhenUnsavedChanges: true,
@@ -42,7 +53,15 @@ const App = ({
           projectId: "3QJ1gO-1UARsp-1YvuEL",
         }}
       >
+        {/* <CanAccess
+          fallback={
+            <ThemedLayout>
+              <ErrorComponent />
+            </ThemedLayout>
+          }
+        > */}
         {children}
+        {/* </CanAccess> */}
         <RefineKbar />
       </Refine>
     </QueryClientProvider>

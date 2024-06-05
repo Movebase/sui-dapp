@@ -1,6 +1,7 @@
 "use client";
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { CanAccess } from "@refinedev/core";
 import {
   DeleteButton,
   EditButton,
@@ -9,6 +10,7 @@ import {
   useDataGrid,
 } from "@refinedev/mui";
 import React from "react";
+import { ErrorComponent } from "../../components/common/Error";
 
 export default function CategoryList() {
   const { dataGridProps } = useDataGrid({});
@@ -49,8 +51,11 @@ export default function CategoryList() {
   );
 
   return (
-    <List>
-      <DataGrid {...dataGridProps} columns={columns} autoHeight />
-    </List>
+    // Access by role
+    <CanAccess fallback={<ErrorComponent />}>
+      <List>
+        <DataGrid {...dataGridProps} columns={columns} autoHeight />
+      </List>
+    </CanAccess>
   );
 }
