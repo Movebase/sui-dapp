@@ -10,6 +10,16 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "192.168.18.60",
+        port: "3001",
+        pathname: "/api/storage/dapps/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

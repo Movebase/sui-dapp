@@ -2,18 +2,20 @@
 
 import { Box, Switch, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useInvalidate } from "@refinedev/core";
+import { useInvalidate, usePermissions } from "@refinedev/core";
 import { CreateButton, DeleteButton, EditButton, List } from "@refinedev/mui";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import CustomImage from "../../components/common/Image";
-import { AppStatus } from "../../enum";
+import { AppStatus, UserRole } from "../../enum";
 import { useDataGrid } from "../../hook/useDatagrid";
 import { changeAppStatus } from "../../providers/api/dappStore";
 import { Dapp } from "./type";
 
 const DApps = () => {
   const invalidate = useInvalidate();
+  const { data } = usePermissions();
+
   const { dataGridProps } = useDataGrid<Dapp>({
     syncWithLocation: false,
     sorters: {
@@ -97,22 +99,23 @@ const DApps = () => {
       {
         field: "status",
         headerName: "Status",
-
         minWidth: 180,
         renderCell: ({ row }) => {
           return (
             <Box className="flex w-full items-center justify-between">
               <Typography>{row.status}</Typography>
-              <Switch
-                checked={row.status === AppStatus.PUBLISHED}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    mutate({ id: row.id, status: AppStatus.PUBLISHED });
-                  } else {
-                    mutate({ id: row.id, status: AppStatus.PENDING });
-                  }
-                }}
-              />
+              {data === UserRole.ADMIN && (
+                <Switch
+                  checked={row.status === AppStatus.PUBLISHED}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      mutate({ id: row.id, status: AppStatus.PUBLISHED });
+                    } else {
+                      mutate({ id: row.id, status: AppStatus.PENDING });
+                    }
+                  }}
+                />
+              )}
             </Box>
           );
         },
